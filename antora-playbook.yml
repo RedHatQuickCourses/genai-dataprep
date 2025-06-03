@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: Data Preparation for Gen AI Applications
+  start_page: genai-dataprep::index.adoc
 
 content:
   sources:
