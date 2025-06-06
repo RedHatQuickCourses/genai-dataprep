@@ -1,0 +1,22 @@
+= Parsing Documents with Images and Tables
+:navtitle: Images and Tables
+
+Docling's high level architecture is illustrated below.
+
+
+== Concepts and Terminology
+
+===  Processing pipeline
+
+
+=== Document Parsers
+
+=== DoclingDocument
+
+=== Serialization
+
+=== Chunking
+
+=== Plugins
+
+

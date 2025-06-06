@@ -1,0 +1,16 @@
+# Using Docling in a RAG Pipeline
+:navtitle: RAG
+
+Blurb...
+
+why do we need an embedding model? https://www.reddit.com/r/LocalLLaMA/comments/1l3vt95/new_embedding_model_qwen3embedding06bgguf_just/
+
+== Lab: Data Preparation for RAG
+
+. Parse PDF docs into embedded chunks and save to Milvus
+. Python program to query
+
+== Lab: Distributed RAG Pipeline
+
+Link to Noel's summit lab here. Change title above....
+

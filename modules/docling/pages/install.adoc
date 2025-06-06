@@ -1,0 +1,6 @@
+# Installing Docling
+:navtitle: Install
+
+## Lab: CLI Install
+
+## Lab: Docling Container

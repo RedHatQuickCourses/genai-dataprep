@@ -1,0 +1,10 @@
+= Docling
+
+In this chapter, you will learn about the architecture and components in Docling, and how to install and use it to extract data from documents of various formats.
+
+== Objectives
+
+* Describe the architecture, components and terminology in Docling
+* Installing Docling CLI and Python library
+* Simple document conversion using Docling CLI
+* Using Docling as a library in programs

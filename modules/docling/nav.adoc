@@ -1,0 +1,5 @@
+* xref:index.adoc[]
+** xref:arch.adoc[]
+** xref:install.adoc[]
+** xref:cli.adoc[]
+** xref:library.adoc[]

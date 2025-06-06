@@ -1,0 +1,21 @@
+= Multi-format Conversion
+:navtitle: Multi-format
+
+Docling's high level architecture is illustrated below.
+
+== Concepts and Terminology
+
+===  Processing pipeline
+
+
+=== Document Parsers
+
+=== DoclingDocument
+
+=== Serialization
+
+=== Chunking
+
+=== Plugins
+
+

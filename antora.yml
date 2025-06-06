@@ -3,8 +3,8 @@ title: Data Preparation for Gen AI Applications
 version: 1
 nav:
 - modules/ROOT/nav.adoc
-- modules/LABENV/nav.adoc
-- modules/chapter1/nav.adoc
-- modules/chapter2/nav.adoc
-- modules/chapter3/nav.adoc
-- modules/appendix/nav.adoc
+- modules/docling/nav.adoc
+- modules/parsing/nav.adoc
+- modules/chunking/nav.adoc
+- modules/dpk/nav.adoc
+- modules/rag/nav.adoc

@@ -1,0 +1,2 @@
+# Using Docling as a Library
+:navtitle: Library

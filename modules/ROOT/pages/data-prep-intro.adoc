@@ -1,0 +1,46 @@
+# Introduction to Data Preparation for AI Applications
+:navtitle: Data Preparation
+
+Artificial Intelligence (AI) has made remarkable strides, powering everything from sophisticated chatbots to groundbreaking scientific research. However, the success of any AI application, particularly those involving Large Language Models (LLMs) and Generative AI (Gen AI), hinges critically on one foundational element: **high-quality, well-prepared data**.
+
+**Data preparation** is the process of _cleaning_, _transforming_, and _structuring_ raw data into a format suitable for AI models. It's often an iterative and time-consuming process, yet it's arguably the most crucial. AI models learn patterns and relationships from the data they are trained on. Effective data preparation ensures that models are trained on accurate, relevant, and unbiased information, leading to more reliable predictions, insightful analyses, and meaningful outputs.
+
+## The Challenge of Unstructured Documents in AI
+
+A significant portion of the world's information, especially within companies, resides in _unstructured_ documents. These include PDFs, Word documents, presentations, emails, scanned images, web pages, and more. Unlike _structured_ data neatly organized in databases, unstructured documents presents some challenges for AI systems:
+
+* **Diverse Formats:** Each document type has its own internal structure and encoding, making uniform processing difficult.
+
+* **Complex Layouts:** Documents often feature intricate layouts with multiple columns, headers, footers, tables, figures, captions, and footnotes. Understanding the logical reading order and the relationship between these elements is non-trivial for machines.
+
+* **Embedded Rich Content:** Tables, charts, images, and even handwritten notes are common. Extracting and interpreting this rich content accurately is essential for correct responses to queries.
+
+* **Scanned and Image-based Content:** Many legacy documents exist only as scanned images, requiring **Optical Character Recognition (OCR)** tools to convert visual text into machine readable text, which can introduce errors.
+
+* **Semantic Ambiguity:** The meaning of text can be highly contextual, and the visual presentation often provides clues that are lost in simple text extraction.
+
+Simply extracting raw text from these documents is often insufficient. AI models, especially LLMs used in applications like Retrieval Augmented Generation (RAG), need to understand not just the words but also the structure, context, and key entities within the documents to provide accurate and relevant responses.
+
+The inherent complexity of unstructured documents necessitates specialized tools designed to bridge the gap between raw documents and AI-ready data. Generic text processing libraries or manual efforts quickly become inefficient and inadequate when dealing with the volume and variety of modern document data. This is where tools like **Docling** are useful.
+
+## Docling
+
+https://docling-project.github.io/docling/[Docling] is an open-source Python toolkit and library for parsing and extracting unstructured data from various multi-format documents. Some of the features include:
+
+**Multi-Format Parsing:** It can ingest a wide array of document formats (PDFs, DOCX, XLSX, HTML, and more), providing a unified starting point in a data preparation workflow.
+
+**Layout Analysis:** Advanced PDF understanding including page layout, reading order, table structure, code, formulas, image classification, and more. Docling can accurately detect tables, parse their cellular structure, and extract tabular data in a usable format.
+
+**OCR Integration:** For scanned documents or embedded images containing text, Docling integrates with OCR engines like **Tesseract** to convert visual information into text.
+
+**Structured Output:** It converts documents into a rich, structured representation (the **DoclingDocument** object), which retains not only the text but also metadata about its layout, provenance, and semantic role. This structured output is far more valuable for AI than plain text.
+
+**Local Processing & Efficiency:** Docling is designed to run locally, ensuring data privacy, and is optimized for efficient processing on industry-standard hardware.
+
+**AI Ecosystem Integration:** Tools like Docling are often designed to integrate seamlessly with popular AI frameworks like **IBM Data Prep Kit**, **LangChain** and **LlamaIndex**, streamlining the process of preparing data to be fed into LLM pipelines for tasks like RAG.
+
+Below is a short video that introduces Docling features and demonstrates how Docling can be used to extract data from documents as part of a RAG workflow.
+
+video::BWxdLm1KqTU[youtube,title=How Docling turns documents into usable AI data,width=700,height=450]
+
+In the next chapter, you will learn how to install and use Docling to extract data from documents in various formats.

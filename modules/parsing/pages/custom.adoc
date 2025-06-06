@@ -1,0 +1,22 @@
+= Customizing Conversion
+:navtitle: Custom
+
+Docling's high level architecture is illustrated below.
+
+
+== Concepts and Terminology
+
+===  Processing pipeline
+
+
+=== Document Parsers
+
+=== DoclingDocument
+
+=== Serialization
+
+=== Chunking
+
+=== Plugins
+
+

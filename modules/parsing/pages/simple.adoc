@@ -1,0 +1,22 @@
+= Basic Conversion
+:navtitle: Basic
+
+Docling's high level architecture is illustrated below.
+
+
+== Concepts and Terminology
+
+===  Processing pipeline
+
+
+=== Document Parsers
+
+=== DoclingDocument
+
+=== Serialization
+
+=== Chunking
+
+=== Plugins
+
+

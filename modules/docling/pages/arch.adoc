@@ -1,0 +1,26 @@
+= Docling Architecture
+:navtitle: Architecture & Concepts
+
+Docling's high level architecture is illustrated below.
+
+image::docling_arch.png[title=Docling Architecture]
+
+== Concepts and Terminology
+
+===  Processing pipeline
+
+Add image from Docling paper here...
+
+image::docling-pipeline.png[title=Docling Processing Pipeline]
+
+=== Document Parsers
+
+=== DoclingDocument
+
+=== Serialization
+
+=== Chunking
+
+=== Plugins
+
+

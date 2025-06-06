@@ -1,27 +1,32 @@
-= An Example Quick Course
+= Data Preparation for Gen AI Applications
 :navtitle: Home
 
 == Introduction
 
-Course Title: Course title FIXME
+This course equips students with the knowledge and practical skills to use **Docling** for efficiently converting and preparing unstructured document data for various AI tasks, particularly for fine-tuning Large Language Models (LLMs), and Retrieval Augmented Generation (RAG) applications.
 
-Description:
-Course description FIXME
+**Target Audience:** Data scientists, AI engineers, solution architects, consultants, and developers who work with unstructured document data, and need to prepare it for AI model training, fine-tuning, or information retrieval.
 
-Duration: FIXME hours
+**Duration:** 2 hours
 
 == Objectives
 
 On completing this course, you should be able to:
 
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+* Understand the challenges of unstructured document data and the role of Docling in addressing them.
+* Install, configure, and use Docling via its Python API and command line interface (CLI).
+* Master the conversion of various document formats (PDF, DOCX, HTML) into Docling's structured **DoclingDocument** format.
+* Effectively navigate and utilize the **DoclingDocument** object to access text, layout, and metadata.
+* Implement document chunking strategies using Docling to prepare data for LLMs.
+* Be prepared to apply Docling to real-world document data preparation tasks.
+* Integrate Docling into AI pipelines, particularly for **Retrieval Augmented Generation (RAG)** with frameworks like **LangChain** and **LlamaIndex**.
 
 == Prerequisites
 
-This course assumes that you have the following prior experience:
+The following courses and labs are recommended before attempting this course:
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+* AI Fundamentals (https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D62410986[Internal] | https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D62412150[Partner])
+
+* Consult the https://source.redhat.com/career/start_learning/core_skills_academies/ai_skills_academy[AI Skills Academy] page for more introductory material on AI
+
+* Introduction to Large Language Models (https://training-lms.redhat.com/sso/saml/auth/rhlpint?RelayState=deeplinkoffering%3D61705036[Internal] | https://training-lms.redhat.com/sso/saml/auth/rhopen?RelayState=deeplinkoffering%3D61706249[Partner])
