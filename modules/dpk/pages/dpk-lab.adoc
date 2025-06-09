@@ -1,0 +1,24 @@
+# Hands on with DPK
+:navtitle: Labs
+
+A number of resources are available from the IBM Developer website to get hands-on experience with DPK. Some of the most useful are listed in this section.
+
+## Lab: Getting Started with DPK
+
+Follow the instructions in the https://developer.ibm.com/learningpaths/get-started-data-prep-kit[Get started with Data Prep Kit (DPK)] learning path to begin your DPK hands on journey.
+
+## Lab: Custom data preparation transforms
+
+Follow the instructions in the https://developer.ibm.com/tutorials/dpk-building-custom-transforms/[Building custom data preparation transforms] tutorial to learn about writing your own custom transforms to annotate and filter data parsed from documents before ingesting into an AI model.
+
+## Lab: Fine Tuning
+
+Follow the instructions in the https://developer.ibm.com/tutorials/dpk-fine-tuning-llms[Preparing data for fine-tuning LLMs] tutorial for preprocessing your data to help fine-tune LLMs. 
+
+## Lab: Retrieval Augmented Generation (RAG) Use Case
+
+Follow the instructions in the https://developer.ibm.com/tutorials/dpk-rag-llms/[Preparing data for a RAG pipeline] tutorial to integrate private knowledge into LLMs.
+
+## Lab: Scaling and Distributing data preparation workflow
+
+Follow the instructions in the https://developer.ibm.com/tutorials/dpk-scaling-custom-transforms[Scaling data preparation workflows] tutorial which implements a Ray runtime, and adds a Kubeflow Pipeline (KFP) extensions to existing transforms.

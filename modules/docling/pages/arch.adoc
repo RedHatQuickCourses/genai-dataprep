@@ -5,22 +5,59 @@ Docling's high level architecture is illustrated below.
 
 image::docling_arch.png[title=Docling Architecture]
 
+Docling has a plugin based architecture for parsing documents (called **converters**) of various formats and extracting text from them. Converters for PDF and MS Office format documents (docx, pptx, xlsx) are provided by default, which can further be customized using Python code. You can also write your own document converter that extends the base classes provided by Docling to support other formats.
+
+Documents of different formats are parsed into memory into a standard Python object called **DoclingDocument**, that represents a format-neutral representation of the structure of the document (text, headings, section, lists, tables, images etc.). This in-memory representation can then be exported into various output formats (Markdown, JSON etc.).
+
+You can process the document through a series of converters and do post-processing steps in a **pipeline** to produce the required output suitable for ingestion into an LLM for RAG, or to fine-tune an existing model, or build a foundation model from scratch.
+
+The next section briefly discusses some terminology and concepts specific to Docling that will be used throughout this course.
+
 == Concepts and Terminology
 
 ===  Processing pipeline
 
-Add image from Docling paper here...
-
 image::docling-pipeline.png[title=Docling Processing Pipeline]
+
+Docling implements a linear __pipeline of operations__, which execute sequentially on each given document. Each document is first parsed by its respective converter, which retrieves the text tokens, consisting of string content and its coordinates on the page to support downstream operations. Then, the standard model pipeline applies a sequence of AI models independently on every page in the document to extract features and content, such as layout and table structures.
+
+Finally, the results from all pages are aggregated and passed through a post-processing stage, which augments metadata, detects the document language, infers reading order and eventually assembles a typed document object (**DoclingDocument**) which can be serialized to JSON or Markdown.
 
 === Document Parsers
 
+Docling provides a number of default parsers (called __backends__) for documents of different formats. The backends can detect and extract the text and structure from documents for further procesing downstream.
+
 === DoclingDocument
+
+With Docling v2, a unified in-memory document representation called **DoclingDocument** was introduced. It is defined as a https://docs.pydantic.dev/latest[Pydantic] datatype, which can express several features common to documents, such as:
+
+* Text, Tables, Pictures, and more
+* Document hierarchy with sections and groups
+* Disambiguation between the main body text, headers and footers
+* Layout information (i.e. bounding boxes) for all items, if available
+* Provenance information
+
+It also provides a set of document construction fluent APIs to build up a **DoclingDocument** from programmatically in code.
 
 === Serialization
 
+A **serializer** is a function that takes the complex, in-memory **DoclingDocument** object and converts (__serializes__) it into a different, more standard format like JSON or Markdown for storage, transmission, and use in other applications downstream. Docling supports many in-built serializers, and you can write a custom serializer by extending the base classes provided by the Docling library.
+
 === Chunking
+
+A **chunker** is a Docling abstraction that, splits a **DoclingDocument** object and returns a __stream of chunks__, each of which captures some part of the document as a string accompanied by respective metadata.
+
+To enable both flexibility for downstream applications and out-of-the-box utility, Docling defines a chunker class hierarchy, providing a base type, **BaseChunker**, as well as specific subclasses.
+
+Docling integration with Gen AI frameworks like LlamaIndex is done using the **BaseChunker** interface, so users can easily plug in any built-in, self-defined, or third-party  implementations.
+
+Starting from a **DoclingDocument**, there are two possible chunking approaches:
+
+* Exporting the **DoclingDocument** to Markdown (or similar format) and then performing user-defined chunking as a post-processing step
+* Using native Docling chunkers, that is, operating directly on the **DoclingDocument** to produce chunks
 
 === Plugins
 
+The Docling toolkit and library is built in a modular manner, where you can extend the functionality of each stage of the pipeline using plugins. For example, you can use different types of Optical Character Recognition (OCR) libraries in the processing pipeline depending on the complexity of your PDFs containing scanned images.
 
+Almost all components (backends, serializers, chunkers) come with defaults and can be extended and customized in code.

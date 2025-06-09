@@ -1,5 +1,5 @@
 # Using Docling in a RAG Pipeline
-:navtitle: RAG
+:navtitle: RAG with Docling
 
 Blurb...
 

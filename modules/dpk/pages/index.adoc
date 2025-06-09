@@ -1,4 +1,36 @@
 # IBM Data Prep Kit
 :navtitle: Data Prep Kit (DPK)
 
-Link to https://developer.ibm.com/components/data-prep-kit/
+https://github.com/data-prep-kit/data-prep-kit[Data Prep Kit] (DPK), an open source project created by IBM is designed to help developers and scientists prepare data for use in artificial intelligence (AI) projects. Think of it as a toolkit for cleaning up large amounts of text before you feed it to an AI for training.
+
+The DPK was used to train data for IBM's foundationl models called the **Granite** family of LLMs.  The DPK is a set of tools and libraries that helps solve the messy data problem by automating the cleaning process. Instead of having a person manually sift through everything, this toolkit provides tools to do the job quickly and consistently. It's built to handle the huge volumes of text needed to train modern AI models.
+
+NOTE: The DPK uses Docling to parse and extract data from documents in different formats. DPK is a super-set of the functionality available in Docling in that, it is useful in more contexts and scenarios like pre-training, model fine tuning and RAG.
+
+## Features
+
+The Data Prep Kit boasts a rich set of features that cater to the diverse needs of AI developers:
+
+* **A Rich Library of Transformers:** The kit includes a wide array of pre-built "transformers" that perform specific data manipulation tasks. These include functions for data ingestion from various formats, deduplication to remove redundant information, quality filtering to eliminate low-quality content, and personally identifiable information (PII) detection and redaction to ensure data privacy. The full list of in-built transformers is available at https://data-prep-kit.github.io/data-prep-kit. A few more details are also provided at https://developer.ibm.com/articles/dpk-prebuilt-transforms.
+
+* **Scalability and Flexibility**: A core design principle of the Data Prep Kit is its ability to scale seamlessly from a local developer's laptop to large, distributed computing environments. It leverages popular open-source frameworks like **Ray** and **Apache Spark** to handle massive datasets efficiently. This scalability ensures that the toolkit can support projects of any size, from small-scale experimentation to enterprise-level model training.
+
+* **Extensibility and Customization:** Recognizing that every AI project has unique data requirements, the Data Prep Kit is highly extensible. Developers can easily create their own custom transformers to address specific data cleaning and preprocessing needs that are not covered by the pre-built modules.
+
+* **Support for Multiple Runtimes:** The toolkit is designed to be runtime-agnostic, offering support for Python, Ray, and Apache Spark. This flexibility allows developers to integrate the Data Prep Kit into their existing workflows and leverage their preferred computing environments.
+
+**Focus on Generative AI Use Cases:** The features and transformers within the kit are specifically tailored for common generative AI tasks, including pre-training, fine-tuning, and retrieval-augmented generation (RAG).
+
+## Architecture
+
+The architecture of the IBM Data Prep Kit is modular and built for scalability and ease of use. It revolves around a central concept of a **"data processing pipeline"**, where a series of **transformers** are applied sequentially to the raw data.
+
+The core components of the architecture include:
+
+* **Data Ingestion:** The initial stage involves reading data from various sources and formats and converting it into a standardized format, typically Apache Parquet, for efficient processing.
+
+* **Transformer Library:** This is the heart of the toolkit, containing the collection of pre-built and custom modules for data cleaning, transformation, and enrichment.
+
+* **Runtime Abstraction:** The kit abstracts the underlying execution engine (Python, Ray, or Spark), allowing developers to write their data preparation logic once and run it across different environments without significant code changes.
+
+* **Pipeline Orchestration:** The framework enables the chaining of multiple transformers together to create a complete data preparation workflow. This allows for a clear and organized approach to complex data preprocessing tasks.
