@@ -113,14 +113,20 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../rag/index.html">RAG</a>
+    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
   </li>
 </ul>
   </li>
@@ -175,6 +181,18 @@
 </div>
 <div class="title">Figure 1. Docling Architecture</div>
 </div>
+<div class="paragraph">
+<p>Docling has a plugin based architecture for parsing documents (called <strong>converters</strong>) of various formats and extracting text from them. Converters for PDF and MS Office format documents (docx, pptx, xlsx) are provided by default, which can further be customized using Python code. You can also write your own document converter that extends the base classes provided by Docling to support other formats.</p>
+</div>
+<div class="paragraph">
+<p>Documents of different formats are parsed into memory into a standard Python object called <strong>DoclingDocument</strong>, that represents a format-neutral representation of the structure of the document (text, headings, section, lists, tables, images etc.). This in-memory representation can then be exported into various output formats (Markdown, JSON etc.).</p>
+</div>
+<div class="paragraph">
+<p>You can process the document through a series of converters and do post-processing steps in a <strong>pipeline</strong> to produce the required output suitable for ingestion into an LLM for RAG, or to fine-tune an existing model, or build a foundation model from scratch.</p>
+</div>
+<div class="paragraph">
+<p>The next section briefly discusses some terminology and concepts specific to Docling that will be used throughout this course.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -182,35 +200,92 @@
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_processing_pipeline"><a class="anchor" href="#_processing_pipeline"></a>Processing pipeline</h3>
-<div class="paragraph">
-<p>Add image from Docling paper here&#8230;&#8203;</p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/docling-pipeline.png" alt="docling pipeline">
 </div>
 <div class="title">Figure 2. Docling Processing Pipeline</div>
 </div>
+<div class="paragraph">
+<p>Docling implements a linear <em>pipeline of operations</em>, which execute sequentially on each given document. Each document is first parsed by its respective converter, which retrieves the text tokens, consisting of string content and its coordinates on the page to support downstream operations. Then, the standard model pipeline applies a sequence of AI models independently on every page in the document to extract features and content, such as layout and table structures.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the results from all pages are aggregated and passed through a post-processing stage, which augments metadata, detects the document language, infers reading order and eventually assembles a typed document object (<strong>DoclingDocument</strong>) which can be serialized to JSON or Markdown.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_document_parsers"><a class="anchor" href="#_document_parsers"></a>Document Parsers</h3>
-
+<div class="paragraph">
+<p>Docling provides a number of default parsers (called <em>backends</em>) for documents of different formats. The backends can detect and extract the text and structure from documents for further procesing downstream.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_doclingdocument"><a class="anchor" href="#_doclingdocument"></a>DoclingDocument</h3>
-
+<div class="paragraph">
+<p>With Docling v2, a unified in-memory document representation called <strong>DoclingDocument</strong> was introduced. It is defined as a <a href="https://docs.pydantic.dev/latest">Pydantic</a> datatype, which can express several features common to documents, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Text, Tables, Pictures, and more</p>
+</li>
+<li>
+<p>Document hierarchy with sections and groups</p>
+</li>
+<li>
+<p>Disambiguation between the main body text, headers and footers</p>
+</li>
+<li>
+<p>Layout information (i.e. bounding boxes) for all items, if available</p>
+</li>
+<li>
+<p>Provenance information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It also provides a set of document construction fluent APIs to build up a <strong>DoclingDocument</strong> from programmatically in code.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_serialization"><a class="anchor" href="#_serialization"></a>Serialization</h3>
-
+<div class="paragraph">
+<p>A <strong>serializer</strong> is a function that takes the complex, in-memory <strong>DoclingDocument</strong> object and converts (<em>serializes</em>) it into a different, more standard format like JSON or Markdown for storage, transmission, and use in other applications downstream. Docling supports many in-built serializers, and you can write a custom serializer by extending the base classes provided by the Docling library.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_chunking"><a class="anchor" href="#_chunking"></a>Chunking</h3>
-
+<div class="paragraph">
+<p>A <strong>chunker</strong> is a Docling abstraction that, splits a <strong>DoclingDocument</strong> object and returns a <em>stream of chunks</em>, each of which captures some part of the document as a string accompanied by respective metadata.</p>
+</div>
+<div class="paragraph">
+<p>To enable both flexibility for downstream applications and out-of-the-box utility, Docling defines a chunker class hierarchy, providing a base type, <strong>BaseChunker</strong>, as well as specific subclasses.</p>
+</div>
+<div class="paragraph">
+<p>Docling integration with Gen AI frameworks like LlamaIndex is done using the <strong>BaseChunker</strong> interface, so users can easily plug in any built-in, self-defined, or third-party  implementations.</p>
+</div>
+<div class="paragraph">
+<p>Starting from a <strong>DoclingDocument</strong>, there are two possible chunking approaches:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exporting the <strong>DoclingDocument</strong> to Markdown (or similar format) and then performing user-defined chunking as a post-processing step</p>
+</li>
+<li>
+<p>Using native Docling chunkers, that is, operating directly on the <strong>DoclingDocument</strong> to produce chunks</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_plugins"><a class="anchor" href="#_plugins"></a>Plugins</h3>
-
+<div class="paragraph">
+<p>The Docling toolkit and library is built in a modular manner, where you can extend the functionality of each stage of the pipeline using plugins. For example, you can use different types of Optical Character Recognition (OCR) libraries in the processing pipeline depending on the complexity of your PDFs containing scanned images.</p>
+</div>
+<div class="paragraph">
+<p>Almost all components (backends, serializers, chunkers) come with defaults and can be extended and customized in code.</p>
+</div>
 </div>
 </div>
 </div>
