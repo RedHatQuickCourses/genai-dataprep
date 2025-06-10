@@ -1,6 +1,83 @@
 # Installing Docling
 :navtitle: Install
 
+You can install and use Docling in multiple ways. This section lists the various options.
+
+## Pre-requisites
+
+* macOS, Linux or WSL based Windows environments
+* Python version 3.10-3.12. The code examples in this course were tested with Python 3.12 on macOS ARM.
+* It is recommended to use a tool like **brew** on macOS, **pyenv** or **uv** on other operating systems to install and manage Python versions.
+* **Podman** (recommended) or **Docker** if you want to run Docling as a container. This course uses **Podman**.
+* Git CLI to clone the sample data files from GitHub
+
 ## Lab: CLI Install
 
-## Lab: Docling Container
+. Verify that you have Python 3.12 installed on your system
++
+[source,subs="verbatim,quotes"]
+--
+$ *python3 -V*
+Python 3.12.11
+--
+
+. During the course, you will work with a set of input documents that will be converted to various output formats. Clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
+
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
+
+. Throughout the course, you will run code in an isolated virtual environment. Create a virtual environment (venv) for this course
++
+[source,subs="verbatim,quotes"]
+--
+$ *python3 -m venv venv*
+--
+
+. Activate the virtual environment
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment
+
+. Install Docling in the virtual environment using the `pip3` command
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *pip3 install docling==2.36.1*
+Collecting docling==2.36.1
+  Downloading docling-2.36.1-py3-none-any.whl.metadata (10 kB)
+...
+Installing collected packages:
+...
+Successfully installed docling-2.36.1 
+docling-core-2.34.1 docling-ibm-models-3.4.4 
+docling-parse-4.0.3 easyocr-1.7.2
+...
+--
+
+. Verify that the `docling` CLI is installed and verify the version
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling --version*
+Docling version: 2.36.1
+Docling Core version: 2.34.1
+Docling IBM Models version: 3.4.4
+Docling Parse version: 4.0.3
+Python: cpython-312 (3.12.11)
+Platform: macOS-15.5-arm64-arm-64bit
+--
+
+NOTE: The Docling project provides a sample Dockerfile to build a container image if you do not want to use the native CLI. See https://github.com/docling-project/docling/blob/main/Dockerfile for a base Dockerfile that can be customized for your specific needs.

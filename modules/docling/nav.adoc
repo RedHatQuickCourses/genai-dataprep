@@ -2,4 +2,5 @@
 ** xref:arch.adoc[]
 ** xref:install.adoc[]
 ** xref:cli.adoc[]
+** xref:gui.adoc[]
 ** xref:library.adoc[]

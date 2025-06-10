@@ -1,2 +1,102 @@
 # Using the Docling CLI
-:navtitle: CLI
+:navtitle: Docling CLI
+
+You can use the Docling CLI to convert documents from and to various supported formats. This is useful for prototyping and experimentation with different kinds of documents that you want to index and use in your RAG pipelines for your Gen AI applications.
+
+The complete list of commands and the corresponding options supported are available at https://docling-project.github.io/docling/reference/cli
+
+## Pre-requisites
+
+* Docling CLI must be installed as outlined in the previous section using `pip`
+* Git CLI to clone the sample data files from GitHub
+
+## Lab: Using the Docling CLI
+
+. If you have not already done so, clone the Git repository containing the sample documents that should be converted, to a folder of your choice. If you have completed the previous lab, then there is need to do this step.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
+
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
+
+. If you have completed the previous lab and created a virtual environment and installed Docling, activate the venv.
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment
+
+. Verify that Docling is installed in the venv
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *pip3 list | grep docling*
+docling                   2.36.1
+docling-core              2.34.1
+docling-ibm-models        3.4.4
+docling-parse             4.0.3
+--
+
+. Run the `docling` CLI command to convert a PDF. When you run the `docling` command for the first time, it will take a while to download and cache a few pre-trained models from Hugging Face model repository (These specialized models are used to identify and extract tables, images and layout information from documents). Subsequent runs will be approximately 50% faster.
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling --output /tmp/ sample-data/docling-rpt.pdf*
+--
++
+The default output format is __Markdown__. The output is saved to a .md file in the location specified by the `--output` flag.
+
+. Verify that a file with the same name, but with a `.md` extension is created in the `/tmp` folder. You can preview the Markdown file in Visual Studio Code or some other previewer
++
+image::cli-convert.png[title=PDF Converted to Markdown Preview]
+
+. You can output to a different format by passing the `--to` flag with the output format required. For example, to get JSON output:
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling --to json --output /tmp/ sample-data/docling-rpt.pdf*
+--
+
+. Verify the JSON output in the `/tmp` folder
++
+[source,subs="verbatim,quotes"]
+--
+{
+  "schema_name": "DoclingDocument",
+  "version": "1.4.0",
+  "name": "docling-rpt",
+  "origin": {
+    "mimetype": "application/pdf",
+    "binary_hash": 11465328351749295394,
+    "filename": "docling-rpt.pdf"
+...
+"orig": "This technical report introduces Docling...
+},
+...
+--
+
+. Now, let's try and convert an MS Word document to Markdown
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling --output /tmp/ sample-data/msword-sample.docx*
+--
++
+image::msword-out.png[title=MS Word fike to Markdown Preview]
++
+Notice how Docling has identified the layout and table structure in the input MS Word document and correctly converted it to Markdown.
+
+## Optional Lab: Explore the different options in the Docling CLI
+
+You can test the Docling CLI with your own PDF and MS Office format documents. Experiment with different input and output formats. Refer to the https://docling-project.github.io/docling/reference/cli[Docling CLI reference] for the complete list of CLI options.
+
+WARNING: Do not forget to run the `docling` command in the virtual environment you created earlier. Docling is not installed in the system `PATH`.

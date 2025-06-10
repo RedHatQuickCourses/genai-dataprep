@@ -1,0 +1,4 @@
+# Docling Web UI
+
+## Lab: Using the docling-serve Web UI
+
