@@ -173,10 +173,139 @@
 </aside>
 <article class="doc">
 <h1 class="page">Docling Web UI</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://github.com/docling-project/docling-serve">docling-serve</a> project provides an easy to use web-based UI to experiment and prototype document conversion using Docling.</p>
+</div>
+<div class="paragraph">
+<p>The most convienient way to run it is as a container.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Do not expose the web UI to the internet, or external use unless you know what you are doing. Ideally, you must provision a reverse proxy, load balancer or an API gateway in front of docling-serve for security reasons. It is mainly meant to be used to test, experiment and prototype document parsing and conversion.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>You must have installed Podman or Docker on your system</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_lab_using_the_docling_serve_web_ui"><a class="anchor" href="#_lab_using_the_docling_serve_web_ui"></a>Lab: Using the docling-serve Web UI</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>docling-serve</code> container using Podman</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>podman run -p 5001:5001 \
+  -e DOCLING_SERVE_ENABLE_UI=true \
+  quay.io/docling-project/docling-serve</strong>
 
+Trying to pull quay.io/docling-project/docling-serve:latest...
+Getting image source signatures
+...
+Starting production server 🚀
+
+Server started at http://0.0.0.0:5001
+Documentation at http://0.0.0.0:5001/docs
+UI at http://0.0.0.0:5001/ui
+
+Logs:
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Using a web browser, navigate to <a href="http://localhost:5001/ui/" class="bare">http://localhost:5001/ui/</a> to load the Docling server web UI</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/web-ui.png" alt="web ui">
+</div>
+<div class="title">Figure 1. Docling serve web UI</div>
+</div>
+</li>
+<li>
+<p>The web UI provides two tabs, for a URL containing an input document (<code>Convert URL</code>), and another for local files that can be uploaded from the system (<code>Convert File</code>). Enter <code><a href="https://arxiv.org/pdf/2408.09869" class="bare">https://arxiv.org/pdf/2408.09869</a></code> in the <code>URL Input Source</code> field. In the <code>Options</code> section, select the <code>Markdown</code> option and unselect <code>JSON</code>. Leave all other fields at the default values.</p>
+</li>
+<li>
+<p>Click <code>Process URL</code> to convert the document. Click the <code>Markdown</code> tab in the output section.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/webui-converted.png" alt="webui converted">
+</div>
+<div class="title">Figure 2. Markdown output in web UI</div>
+</div>
+</li>
+<li>
+<p>You can click the <code>Markdown-Rendered</code> tab in the output section to preview how the Markdown is rendered</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/md-preview.png" alt="md preview">
+</div>
+<div class="title">Figure 3. Markdown output preview in web UI</div>
+</div>
+</li>
+<li>
+<p>Click the <code>Convert File</code> tab at the top of the web UI and upload a sample input document from the <code>sample-data</code> folder in the <code>genai-apps</code> Git repository, or some other file in one of the supported formats from your local file system. Click <code>Process URL</code> to convert the document, and verify the output.</p>
+</li>
+<li>
+<p>Experiment with different combinations of input and output formats and check the output.</p>
+</li>
+<li>
+<p><code>docling-serve</code> also provides a REST API that you can use to integrate with third-party client applications. Navigate to <a href="http://localhost:5001/docs" class="bare">http://localhost:5001/docs</a> to view the OpenAPI (Swagger) API documentation for <code>docling-serve</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/docling-rest-api.png" alt="docling rest api">
+</div>
+<div class="title">Figure 4. Docling serve REST API</div>
+</div>
+</li>
+<li>
+<p>Send an HTTP request using the <code>curl</code> tool to test the REST API by converting a document (hosted at an external URL). You should see a JSON response as output of the conversion. The Markdown content is under the <code>md_content</code> attribute of the JSON response.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>curl -X 'POST' \
+  'http://localhost:5001/v1alpha/convert/source' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "http_sources": [{"url": "https://arxiv.org/pdf/2501.17887"}]
+  }'</strong>
+
+{"document":{"filename":"2501.17887v1.pdf","md_content":"## Docling: An Efficient Open-Source Toolkit for AI-driven Document Conversion
+...
+"json_content":null,"html_content":null,"text_content":null,"doctags_content":null},
+"status":"success","errors":[],"processing_time":16.26403219400163,"timings":{}}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After you have finished experimenting with the <code>docling-serve</code> web UI, press <code>Ctrl+C</code> in the terminal window where you started the container using Podman to stop the server.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <nav class="pagination">

@@ -300,10 +300,43 @@ docling-parse             4.0.3</code></pre>
 <div class="content">
 <img src="_images/msword-out.png" alt="msword out">
 </div>
-<div class="title">Figure 2. MS Word fike to Markdown Preview</div>
+<div class="title">Figure 2. MS Word file to Markdown Preview</div>
 </div>
 <div class="paragraph">
 <p>Notice how Docling has identified the layout and table structure in the input MS Word document and correctly converted it to Markdown.</p>
+</div>
+</li>
+<li>
+<p>Finally, let&#8217;s try and convert an MS Powerpoint document to Markdown</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling --output /tmp/ sample-data/ppt-sample.pptx</strong>
+WARNING:docling.backend.mspowerpoint_backend:Warning: image cannot be loaded by Pillow: cannot find loader for this WMF file</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ppt-converted.png" alt="ppt converted">
+</div>
+<div class="title">Figure 3. MS Powerpoint file to Markdown Preview</div>
+</div>
+<div class="paragraph">
+<p>Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not able to parse an embedded WMF file in the slides.</p>
+</div>
+</li>
+<li>
+<p>You can also pass a URL containing a document instead of a local path to the document. For example,</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling -vv --output /tmp/ https://arxiv.org/pdf/2408.09869</strong>
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): arxiv.org:443
+DEBUG:urllib3.connectionpool:https://arxiv.org:443 "GET /pdf/2408.09869 HTTP/1.1" 200 5566575
+...
+INFO:docling.document_converter:Finished converting document 2408.09869v5.pdf in 25.77 sec.
+INFO:docling.cli.main:writing Markdown output to /tmp/2408.09869v5.md
+INFO:docling.cli.main:Processed 1 docs, of which 0 failed
+INFO:docling.cli.main:All documents were converted in 25.91 seconds.</code></pre>
+</div>
 </div>
 </li>
 </ol>
@@ -315,6 +348,18 @@ docling-parse             4.0.3</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can test the Docling CLI with your own PDF and MS Office format documents. Experiment with different input and output formats. Refer to the <a href="https://docling-project.github.io/docling/reference/cli">Docling CLI reference</a> for the complete list of CLI options.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use the <code>-v</code> flag or the <code>-vv</code> flag for verbose debugging output. It will help you troubleshoot if there are parsing failures with documents.
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock warning">
 <table>
