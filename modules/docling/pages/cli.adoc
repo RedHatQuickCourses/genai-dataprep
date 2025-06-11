@@ -91,12 +91,40 @@ $ (venv) *docling --to json --output /tmp/ sample-data/docling-rpt.pdf*
 $ (venv) *docling --output /tmp/ sample-data/msword-sample.docx*
 --
 +
-image::msword-out.png[title=MS Word fike to Markdown Preview]
+image::msword-out.png[title=MS Word file to Markdown Preview]
 +
 Notice how Docling has identified the layout and table structure in the input MS Word document and correctly converted it to Markdown.
+
+. Finally, let's try and convert an MS Powerpoint document to Markdown
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling --output /tmp/ sample-data/ppt-sample.pptx*
+WARNING:docling.backend.mspowerpoint_backend:Warning: image cannot be loaded by Pillow: cannot find loader for this WMF file
+--
++
+image::ppt-converted.png[title=MS Powerpoint file to Markdown Preview]
++
+Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not able to parse an embedded WMF file in the slides.
+
+. You can also pass a URL containing a document instead of a local path to the document. For example,
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *docling -vv --output /tmp/ https://arxiv.org/pdf/2408.09869*
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): arxiv.org:443
+DEBUG:urllib3.connectionpool:https://arxiv.org:443 "GET /pdf/2408.09869 HTTP/1.1" 200 5566575
+...
+INFO:docling.document_converter:Finished converting document 2408.09869v5.pdf in 25.77 sec.
+INFO:docling.cli.main:writing Markdown output to /tmp/2408.09869v5.md
+INFO:docling.cli.main:Processed 1 docs, of which 0 failed
+INFO:docling.cli.main:All documents were converted in 25.91 seconds.
+--
 
 ## Optional Lab: Explore the different options in the Docling CLI
 
 You can test the Docling CLI with your own PDF and MS Office format documents. Experiment with different input and output formats. Refer to the https://docling-project.github.io/docling/reference/cli[Docling CLI reference] for the complete list of CLI options.
+
+TIP: Use the `-v` flag or the `-vv` flag for verbose debugging output. It will help you troubleshoot if there are parsing failures with documents.
 
 WARNING: Do not forget to run the `docling` command in the virtual environment you created earlier. Docling is not installed in the system `PATH`.
