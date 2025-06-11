@@ -66,7 +66,7 @@
     <a class="nav-link" href="gui.html">Docling Web UI</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="library.html">Library</a>
+    <a class="nav-link" href="library.html">Docling Library</a>
   </li>
 </ul>
   </li>
@@ -163,7 +163,7 @@
   <ul>
     <li><a href="../index.html">Data Preparation for Gen AI Applications</a></li>
     <li><a href="index.html">Docling</a></li>
-    <li><a href="library.html">Library</a></li>
+    <li><a href="library.html">Docling Library</a></li>
   </ul>
 </nav>
 </div>
@@ -173,7 +173,127 @@
 </aside>
 <article class="doc">
 <h1 class="page">Using Docling as a Library</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Docling CLI and web UI are meant to be used for simple use-cases and for experimenting with documents. The most common way to use Docling in the real-world is as a library to build custom pipelines and integrate with other systems as part of a larger pre-training, fine-tuning or RAG workflow.</p>
+</div>
+<div class="paragraph">
+<p>This section is a brief introduction to using Docling as a Python library to programmatically perform document conversions. This is only a basic introduction. Subsequent chapters will deal extensively with Docling features like chunking, custom pipelines, and serialization.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Docling CLI must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
+</li>
+<li>
+<p>Git CLI to clone the sample data files from GitHub</p>
+</li>
+<li>
+<p>Visual Studio Code, or other editors to edit Python code</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_simple_document_conversion"><a class="anchor" href="#_lab_simple_document_conversion"></a>Lab: Simple Document Conversion</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
+</div>
+</li>
+<li>
+<p>Edit the <code>simple-conversion.py</code> file in VS Code.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from docling.document_converter import DocumentConverter
 
+source = "https://arxiv.org/pdf/2408.09869"  # document URL
+
+converter = DocumentConverter()
+doc = converter.convert(source).document
+
+print(doc.export_to_markdown())</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the program. You can safely ignnore any warning emitted. You should see that the program downloaded the PDF and converted it into Markdown.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>python3 simple-conversion.py</strong>
+&lt;!-- image --&gt;
+
+<mark> Docling Technical Report
+
+Version 1.0
+
+Christoph Auer Maksym
+...
+</mark> Abstract
+
+This technical report introduces Docling
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are using an IDE like Visual Studio Code, you can mouse over the <code>doc</code> string in Line 6. Notice that it is of type <code>DoclingDocument</code>. This object is a runtime representation of the structure and content of the input document. You can then export this object into various output formats, or do some processing on the structure of the input document and then output content.</p>
+</li>
+<li>
+<p>On <code>Line 8</code> in the code sample, delete the <code>.export_to_markdown()</code> method text and enter a <code>.</code> ("dot") after the <code>doc</code> object. The IDE offers you a number of methods that can be invoked.</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/code-complete.png" alt="code complete" title="DoclingDocument object methods"></span></p>
+</div>
+</li>
+<li>
+<p>Select the <code>export_to_text()</code> method and read the documentation for the method. Note that it provides some options to control the amount of output text. Change <code>Line 8</code> in the sample code to look like the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+
+print(doc.<strong>export_to_text(from_element=0, to_element=10))</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the program again, and note that output is restricted to around 10 lines from the output text.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="gui.html">Docling Web UI</a></span>
   <span class="next"><a href="../parsing/index.html">Parsing</a></span>
