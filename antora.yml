@@ -4,7 +4,7 @@ version: 1
 nav:
 - modules/ROOT/nav.adoc
 - modules/docling/nav.adoc
-- modules/parsing/nav.adoc
+- modules/conversion/nav.adoc
 - modules/chunking/nav.adoc
 - modules/dpk/nav.adoc
 - modules/rag/nav.adoc

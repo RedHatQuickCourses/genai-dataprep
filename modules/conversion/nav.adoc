@@ -1,5 +1,4 @@
 * xref:index.adoc[]
-** xref:simple.adoc[]
 ** xref:batch.adoc[]
 ** xref:multi-format.adoc[]
 ** xref:custom.adoc[]

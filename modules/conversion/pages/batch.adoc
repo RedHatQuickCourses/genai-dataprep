@@ -1,8 +1,7 @@
-= Basic Conversion
-:navtitle: Basic
+= Batch Conversion
+:navtitle: Batch
 
 Docling's high level architecture is illustrated below.
-
 
 == Concepts and Terminology
 
