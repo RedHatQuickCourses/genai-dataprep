@@ -29,6 +29,8 @@ Docling provides a number of default parsers (called __backends__) for documents
 
 === DoclingDocument
 
+image::docling-new-pipeline.png[title=Pipelines build up a DoclingDocument object which can be further processed downstream]
+
 With Docling v2, a unified in-memory document representation called **DoclingDocument** was introduced. It is defined as a https://docs.pydantic.dev/latest[Pydantic] datatype, which can express several features common to documents, such as:
 
 * Text, Tables, Pictures, and more

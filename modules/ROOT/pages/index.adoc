@@ -7,19 +7,20 @@ This course equips students with the knowledge and practical skills to use **Doc
 
 **Target Audience:** Data scientists, AI engineers, solution architects, consultants, and developers who work with unstructured document data, and need to prepare it for AI model training, fine-tuning, or information retrieval.
 
-**Duration:** 2 hours
+**Duration:** 4 hours
 
 == Objectives
 
 On completing this course, you should be able to:
 
 * Understand the challenges of unstructured document data and the role of Docling in addressing them.
-* Install, configure, and use Docling via its Python API and command line interface (CLI).
-* Master the conversion of various document formats (PDF, DOCX, HTML) into Docling's structured **DoclingDocument** format.
+* Install, configure, and use Docling via its Python API, web UI and command line interface (CLI).
+* Learn about conversion of various document formats (PDF, DOCX, HTML) into Docling's structured **DoclingDocument** format.
 * Effectively navigate and utilize the **DoclingDocument** object to access text, layout, and metadata.
 * Implement document chunking strategies using Docling to prepare data for LLMs.
 * Be prepared to apply Docling to real-world document data preparation tasks.
-* Integrate Docling into AI pipelines, particularly for **Retrieval Augmented Generation (RAG)** with frameworks like **LangChain** and **LlamaIndex**.
+* Integrate Docling into AI pipelines, particularly for **Retrieval Augmented Generation (RAG)** with frameworks like **LangChain** and vector databases like **Milvus**.
+* Learn how the Data Prep Kit (DPK) can be used to train and fine-tune LLMs.
 
 == Prerequisites
 

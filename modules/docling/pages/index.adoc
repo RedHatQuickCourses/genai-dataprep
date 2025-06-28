@@ -7,4 +7,5 @@ In this chapter, you will learn about the architecture and components in Docling
 * Describe the architecture, components and terminology in Docling
 * Installing Docling CLI and Python library
 * Simple document conversion using Docling CLI
+* Simple document conversion using Docling web UI
 * Using Docling as a library in programs

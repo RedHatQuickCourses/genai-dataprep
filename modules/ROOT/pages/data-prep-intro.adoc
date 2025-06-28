@@ -7,7 +7,9 @@ Artificial Intelligence (AI) has made remarkable strides, powering everything fr
 
 ## The Challenge of Unstructured Documents in AI
 
-A significant portion of the world's information, especially within companies, resides in _unstructured_ documents. These include PDFs, Word documents, presentations, emails, scanned images, web pages, and more. Unlike _structured_ data neatly organized in databases, unstructured documents presents some challenges for AI systems:
+A significant portion of the world's information, especially within companies, resides in _unstructured_ documents. These include PDFs, Word documents, presentations, emails, scanned images, web pages, and more. Unlike _structured_ data neatly organized in databases, unstructured documents presents some challenges for AI systems.
+
+image::ai-challenges.png[title=Challenges with Unstructured Documents for AI Applications]
 
 * **Diverse Formats:** Each document type has its own internal structure and encoding, making uniform processing difficult.
 

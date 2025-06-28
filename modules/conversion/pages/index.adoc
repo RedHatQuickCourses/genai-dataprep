@@ -1,8 +1,12 @@
 = Converting Documents
 :navtitle: Conversion
 
-In this chapter, you will learn 
+In this chapter, you will learn how to use the Docling python library to convert documents in various formats for downstream processing in AI applications
 
 == Objectives
 
-* 
+* Convert a number of documents using batching
+* Convert documents in various formats (PDF, MS Office, HTML)
+* Customizet the Docling processing pipeline to fit the needs of your applications
+* Extract images and tables from documents
+* Extract image captions from documents

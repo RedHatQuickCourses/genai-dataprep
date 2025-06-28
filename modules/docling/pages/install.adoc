@@ -13,7 +13,7 @@ You can install and use Docling in multiple ways. This section lists the various
 
 ## Lab: CLI Install
 
-. Verify that you have Python 3.12 installed on your system
+. Verify that you have Python 3.10, or higher installed on your system
 +
 [source,subs="verbatim,quotes"]
 --

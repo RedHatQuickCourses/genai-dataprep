@@ -36,7 +36,7 @@ $ *source venv/bin/activate*
 +
 Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-. Edit the `simple-conversion.py` file in VS Code.
+. Inspect the `simple-conversion.py` file in VS Code.
 +
 ```python
 from docling.document_converter import DocumentConverter
@@ -49,11 +49,11 @@ doc = converter.convert(source).document
 print(doc.export_to_markdown())
 ```
 
-. Run the program. You can safely ignnore any warning emitted. You should see that the program downloaded the PDF and converted it into Markdown.
+. Run the program. You can safely ignore any warnings emitted. You should see that the program downloaded the PDF and converted it into Markdown.
 +
 [source,subs="verbatim,quotes"]
 --
-$ *python3 simple-conversion.py*
+$ (venv) *python3 simple-conversion.py*
 <!-- image -->
 
 ## Docling Technical Report

@@ -1,21 +1,107 @@
 = Multi-format Conversion
 :navtitle: Multi-format
 
-Docling's high level architecture is illustrated below.
+In the previous section, you learnt how to programatically convert a single PDF file using the Docling Python library. In real-world use-cases, you will be required to convert multiple docouments at scale in batch mode.
 
-== Concepts and Terminology
+The Docling Python library provides you a convienient way to achieve this via the `convert_all` method in the `DocumentConverter` class. It takes a list of `Path` variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size and more.
 
-===  Processing pipeline
+See https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.DocumentConverter.convert_all[the convert_all method^] API documentation for the full parameter list.
 
+## Pre-requisites
 
-=== Document Parsers
+* The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
+* Git CLI to clone the sample data files from GitHub
+* Visual Studio Code, or other editors to edit Python code
 
-=== DoclingDocument
+## Lab: Convert Multi-format Documents
 
-=== Serialization
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
 
-=== Chunking
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
 
-=== Plugins
+. If you have previously created a virtual environment and installed Docling, activate the venv.
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
+. Inspect the `batch-conversion.py` file in VS Code. The input documents are in the `sample-data/batch` folder. The output documents will be placed in the `/tmp/batch-converted` folder.
++
+```python
+INPUT_DIR = "sample-data/batch"
+OUTPUT_DIR = "/tmp/batch-converted"
+...
+def main():
+...
+  input_doc_paths: list[Path] = list(input_path.glob("*.pdf")) <1>
+```
+<1> Construct `Path` objects by fetching all files with ".pdf" extension
 
+. Docling provides sane defaults for processing PDF files using the `PdfPipelineOptions` class. You can customize the pipeline by changing various fields in this class. In our case, we set the option to generate images of each page (in memory) for further processing in the pipeline.
++
+[source,subs="verbatim,quotes"]
+--
+ pipeline_options = PdfPipelineOptions()
+ *pipeline_options.generate_page_images = True*
+--
+
+. The conversion magic happens using the `DocumentConverter` class. This class converts the input files into the unified `DoclingDocument` class, which can be exported to various output formats, and can also be used for further custom processing before outputting the result.
++
+[source,subs="verbatim,quotes"]
+--
+doc_converter = DocumentConverter(
+    format_options={
+        InputFormat.PDF: PdfFormatOption(
+            *pipeline_options=pipeline_options, <1>
+            backend=DoclingParseV4DocumentBackend* <2>
+        )
+    }
+)
+--
+<1> The pipeline options set previously
+<2> Docling supports multiple backends. Here we use the default `DoclingParseV4DocumentBackend`. See https://github.com/docling-project/docling/tree/main/docling/backend for more backends
+
+. Convert the input document using the `convert_all` method
++
+[source,subs="verbatim,quotes"]
+--
+conv_results = *doc_converter.convert_all*(
+    input_doc_paths, <1>
+    raises_on_error=False, <2>
+)
+--
+<1> The list of `Path` objects referencing the input PDF files.
+<2> Set flag to **NOT** halt processing if there is an error during conversion. Setting this flag to `True` will halt the processing pipeline if an error occurs.
+
+. Finally, export the in memory representation of the `DoclingDocument` object to Markdown format. Use the VS Code autocomplete suggestions to view other `save_as*` methods available on the `DoclingDocument` object.
++
+```python
+conv_res.document.save_as_markdown(
+    output_path / f"{out_file_name}.md", 
+    image_mode=ImageRefMode.PLACEHOLDER
+)
+```
+
+. Run the program. You can safely ignore any warnings emitted. 
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *python3 batch-conversion.py*
+--
+
+. Once the program completes, you should see Markdown files in the `/tmp/batch-converted` folder corresponding to the input files with a `*.md` extension. Preview the markdown rendering in VS Code or a Markdown editor and verify that headings, paragraphs, and tables are converted correctly.
++
+image::batch-converted.png[title=Batch converted Markdown files]
