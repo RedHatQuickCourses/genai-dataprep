@@ -1,7 +1,9 @@
 = Chunking & Serialization
 
-In this chapter, you will learn 
+In this chapter, you will learn about the need for **chunking** - a concept where a large body of text is split into smaller pieces before serving as input to an LLM to derive improved response quality for queries. You will also learn about different *serialization* (ways to output text) options in Docling.
 
 == Objectives
 
-* 
+* What is Chunking? Why do you need it?
+* Customizing the chunking process
+* Serialization options in Docling

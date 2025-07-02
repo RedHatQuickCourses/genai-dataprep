@@ -6,5 +6,5 @@ nav:
 - modules/docling/nav.adoc
 - modules/conversion/nav.adoc
 - modules/chunking/nav.adoc
-- modules/dpk/nav.adoc
 - modules/rag/nav.adoc
+- modules/dpk/nav.adoc

@@ -1,22 +1,136 @@
 = Parsing Documents with Images and Tables
 :navtitle: Images and Tables
 
-Docling's high level architecture is illustrated below.
+Once you convert an input document into the unified `DoclingDocument` object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells and textual items. 
 
+## Pre-requisites
 
-== Concepts and Terminology
+* The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
+* Git CLI to clone the sample data files from GitHub
+* Visual Studio Code, or other editors to edit Python code
 
-===  Processing pipeline
+## Lab: Exporting Tables
 
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
 
-=== Document Parsers
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
 
-=== DoclingDocument
+. If you have previously created a virtual environment and installed Docling, activate the venv.
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-=== Serialization
+. Inspect the `export-tables.py` file in VS Code. The input document is in the `sample-data/batch` folder. The output documents will be placed in the `/tmp/export-tables` folder.
++
+```python
+INPUT_FILE = "sample-data/batch/2206.01062.pdf"
+OUTPUT_DIR = "/tmp/export-tables/"
+```
 
-=== Chunking
+. In the `main()` method, instantiate a default `DocumentConverter` class instance and convert the input document:
++
+[source,subs="verbatim,quotes"]
+--
+...
+    doc_converter = DocumentConverter()
 
-=== Plugins
+    conv_res = doc_converter.convert(input_file)
+...
+--
 
+. On the `DoclingDocument` object, Docling provides a `tables` method that returns a list of `TableItem` objects representing all the tables in the document. We take advantage of Docling's integration with the popular `Pandas` library to export a `DataFrame` object that we can convieniently query and manipulate.
++
+[source,subs="verbatim,quotes"]
+--
+...
+for table_ix, table in enumerate(*conv_res.document.tables*):
+    table_df = *table.export_to_dataframe()*
+...
+--
 
+. Finally, we export the in-memory representation of the `DataFrame` objects to a CSV file.
++
+```python
+...
+    table_df.to_csv(element_csv_filename)
+...
+```
+
+. Run the program. You can safely ignore any warnings emitted. You should see some table output in markdown format.
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *python3 export-tables.py*
+--
+
+. Once the program completes, you should see CSV files in the `/tmp/export-tables` folder corresponding to each of the tables in the document with a `*.csv` extension.
++
+image::export-tables.png[title=Tables exported to CSV files]
+
+## Lab: Exporting Images and Image Snapshots
+
+. Inspect the code in the `export-images.py` file. The input file for this lab is `sample-data/penrose.pdf`, a document that has a number of embedded images. The images are extracted and saved to the `/tmp/export-images` folder after processing.
+
+. In the `main()` method, we customize the pipeline by asking Docling to generate images of each page in the input document as well as extract images from it.
++
+```python
+...
+    pipeline_options = PdfPipelineOptions()
+    pipeline_options.images_scale = 2.0
+    pipeline_options.generate_page_images = True
+    pipeline_options.generate_picture_images = True
+...
+```
+
+. Once the document is converted, we iterate over each page in the document, and take a snapshot image of each page and save it in the `/tmp/export-images` folder. Once again, Docling's native integration with the popular Python `Pillow` library provides a nice convienient abstraction for us to export the image objects to different formats.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    for page_no, page in *conv_res.document.pages.items()*:
+        page_no = page.page_no
+        page_image_filename = output_path / f"{out_file_name}-page-{page_no}.png"
+
+        with page_image_filename.open("wb") as fp:
+            *page.image.pil_image.save(fp, format="PNG")*
+...
+--
+
+. Next, we iterate over the hierarchial tree of nested objects in the `DoclingDocument` object and extract images (`PictureItem` elements) from it. We serialize each of the extracted images in the `/tmp/export-images` folder.
++
+[source,subs="verbatim,quotes"]
+--
+...
+for element, _level in conv_res.document.*iterate_items()*:
+    if isinstance(element, *PictureItem*):
+        picture_counter += 1
+        element_image_filename = (
+            output_path / f"{out_file_name}-picture-{picture_counter}.png"
+        )
+...
+--
+
+. Continue using the virtual environment from the previous lab. If you are not in the virtual environment, active it and then run the `export-images.py` file.
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *python3 export-images.py*
+--
+
+. Verify that the extracted page images and the individual images in the document are exported in the `/tmp/export-images` folder.
++
+image::export-images.png[title=Images exported to PNG files]

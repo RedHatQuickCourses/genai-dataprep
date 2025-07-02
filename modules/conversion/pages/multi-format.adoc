@@ -1,11 +1,40 @@
 = Multi-format Conversion
 :navtitle: Multi-format
 
-In the previous section, you learnt how to programatically convert a single PDF file using the Docling Python library. In real-world use-cases, you will be required to convert multiple docouments at scale in batch mode.
+Docling supports automatically detecting supported input formats and converting them to several output formats amenable for ingestion into LLMs.
 
-The Docling Python library provides you a convienient way to achieve this via the `convert_all` method in the `DocumentConverter` class. It takes a list of `Path` variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size and more.
+See https://docling-project.github.io/docling/usage/supported_formats/[Supported Input and Output Formats^] page for the full list of input and output formats supported by Docling.
 
-See https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.DocumentConverter.convert_all[the convert_all method^] API documentation for the full parameter list.
+You can control the allowed input formats using the `allowed_formats` parameter to the `DocumentConverter` class:
+```python
+...
+doc_converter = (
+        DocumentConverter(
+            allowed_formats=[
+                InputFormat.PDF,
+                InputFormat.IMAGE,
+                InputFormat.DOCX,
+                InputFormat.HTML,
+                InputFormat.PPTX,
+                InputFormat.ASCIIDOC,
+                InputFormat.CSV,
+                InputFormat.MD,
+            ],
+...
+```
+
+Input formats not listed in the `allowed_formats` list are ignored. You can also simply use Python's `glob` method in the `Path` class to filter out files you don't want converted:
+
+```python
+...
+allowed_extensions = ["*.pdf", "*.docx", "*.xlsx", "*.pptx", "*.csv", "*.asciidoc"]
+...
+input_doc_paths: list[Path] = []
+
+for ext in allowed_extensions:
+    input_doc_paths.extend(input_path.glob(ext))
+...
+```
 
 ## Pre-requisites
 
@@ -38,70 +67,64 @@ $ *source venv/bin/activate*
 +
 Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-. Inspect the `batch-conversion.py` file in VS Code. The input documents are in the `sample-data/batch` folder. The output documents will be placed in the `/tmp/batch-converted` folder.
+. Inspect the `multi-format.py` file in VS Code. The input documents are in the `sample-data/multi-format` folder. The output documents will be placed in the `/tmp/multi-converted` folder.
 +
 ```python
-INPUT_DIR = "sample-data/batch"
-OUTPUT_DIR = "/tmp/batch-converted"
-...
-def main():
-...
-  input_doc_paths: list[Path] = list(input_path.glob("*.pdf")) <1>
+INPUT_DIR = "sample-data/multi-format"
+OUTPUT_DIR = "/tmp/multi-converted"
 ```
-<1> Construct `Path` objects by fetching all files with ".pdf" extension
 
-. Docling provides sane defaults for processing PDF files using the `PdfPipelineOptions` class. You can customize the pipeline by changing various fields in this class. In our case, we set the option to generate images of each page (in memory) for further processing in the pipeline.
+. Create a list of supported file formats and filter them using the `glob` method on the `Path` class:
 +
 [source,subs="verbatim,quotes"]
 --
- pipeline_options = PdfPipelineOptions()
- *pipeline_options.generate_page_images = True*
+...
+allowed_extensions = ["*.pdf", "*.docx", "*.xlsx", "*.pptx", "*.csv", "*.asciidoc"]
+...
+
+input_doc_paths: list[Path] = []
+
+for ext in allowed_extensions:
+        input_doc_paths.extend(input_path.glob(ext))
+...
 --
 
-. The conversion magic happens using the `DocumentConverter` class. This class converts the input files into the unified `DoclingDocument` class, which can be exported to various output formats, and can also be used for further custom processing before outputting the result.
+. Use the `convert_all` method in the `DocumentConverter` class to convert all the input documents to `DoclingDocument` objects. 
 +
 [source,subs="verbatim,quotes"]
 --
-doc_converter = DocumentConverter(
-    format_options={
-        InputFormat.PDF: PdfFormatOption(
-            *pipeline_options=pipeline_options, <1>
-            backend=DoclingParseV4DocumentBackend* <2>
-        )
-    }
+...
+doc_converter = DocumentConverter()
+
+    conv_results = *doc_converter.convert_all*(
+    input_doc_paths,
+    raises_on_error=False,
 )
+...
 --
-<1> The pipeline options set previously
-<2> Docling supports multiple backends. Here we use the default `DoclingParseV4DocumentBackend`. See https://github.com/docling-project/docling/tree/main/docling/backend for more backends
 
-. Convert the input document using the `convert_all` method
-+
-[source,subs="verbatim,quotes"]
---
-conv_results = *doc_converter.convert_all*(
-    input_doc_paths, <1>
-    raises_on_error=False, <2>
-)
---
-<1> The list of `Path` objects referencing the input PDF files.
-<2> Set flag to **NOT** halt processing if there is an error during conversion. Setting this flag to `True` will halt the processing pipeline if an error occurs.
-
-. Finally, export the in memory representation of the `DoclingDocument` object to Markdown format. Use the VS Code autocomplete suggestions to view other `save_as*` methods available on the `DoclingDocument` object.
+. Finally, export the in-memory representation of the `DoclingDocument` objects to JSON format.
 +
 ```python
-conv_res.document.save_as_markdown(
-    output_path / f"{out_file_name}.md", 
-    image_mode=ImageRefMode.PLACEHOLDER
+...
+for conv_res in conv_results:
+    out_file_name = conv_res.input.file.stem
+
+    conv_res.document.save_as_json(
+        output_path / f"{out_file_name}.json", 
+        image_mode=ImageRefMode.PLACEHOLDER
+    )
 )
+...
 ```
 
-. Run the program. You can safely ignore any warnings emitted. 
+. Run the program. You can safely ignore any warnings emitted.
 +
 [source,subs="verbatim,quotes"]
 --
-$ (venv) *python3 batch-conversion.py*
+$ (venv) *python3 multi-format.py*
 --
 
-. Once the program completes, you should see Markdown files in the `/tmp/batch-converted` folder corresponding to the input files with a `*.md` extension. Preview the markdown rendering in VS Code or a Markdown editor and verify that headings, paragraphs, and tables are converted correctly.
+. Once the program completes, you should see Markdown files in the `/tmp/multi-converted` folder corresponding to the input files with a `*.json` extension. Preview the converted JSON files in VS Code, and verify that the documents are converted correctly. Hierarchial elements (headings, tables, paragraphs) in the input are converted to corresponding nested JSON objects in the output.
 +
-image::batch-converted.png[title=Batch converted Markdown files]
+image::multi-converted.png[title=Multiple formats converted to JSON files]

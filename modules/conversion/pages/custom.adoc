@@ -1,22 +1,146 @@
-= Customizing Conversion
-:navtitle: Custom
+= Customizing Conversion Pipeline
+:navtitle: Customizing
 
-Docling's high level architecture is illustrated below.
+Docling provides sane defaults for converting many different type of documents. Many documents that you want to convert for LLM training or RAG will convert to a suitable format of your choice without too much customization. However, in some cases, you may wish to customize the Docling processing pipeline for conversion by using the Python library.
 
+Common use-cases include using a different Optical Character Recognition (OCR) tool/library to convert a scanned PDF document, extract certain sections from documents while discrading the rest, automatic image captioning, image and table extraction, and many more options to programatically navigate the structure of the document hierarchy during the conversion process.
 
-== Concepts and Terminology
+Docling allows you to do this by customizing the pipeline options classes provided by Docling. See https://docling-project.github.io/docling/reference/pipeline_options/[Pipeline Options^] for more details.
 
-===  Processing pipeline
+## Pre-requisites
 
+* The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
+* Git CLI to clone the sample data files from GitHub
+* Visual Studio Code, or other editors to edit Python code
+* You will need to install the Tesseract OCR CLI and libraries
 
-=== Document Parsers
+## Lab: Customizing the Docling Conversion Pipeline
 
-=== DoclingDocument
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
 
-=== Serialization
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
 
-=== Chunking
+. If you have previously created a virtual environment and installed Docling, activate the venv.
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-=== Plugins
+. Install the Tesseract OCR CLI and libraries for your platform by following the instructions at https://docling-project.github.io/docling/installation/[Install Alternative OCR engines^]
++
+IMPORTANT: Install the tesseract libraries using `pip install` only after you activate the virtual environment!
++
+image::alt-ocr.png[title=Install Tesseract OCR]
++
+For example, on macOS:
++
+```bash
+$ (venv) brew install tesseract leptonica pkg-config
+$ (venv) TESSDATA_PREFIX=/opt/homebrew/share/tessdata/
+$ (venv) export "TESSDATA_PREFIX=${TESSDATA_PREFIX}"
+$ (venv) pip install --no-binary :all: tesserocr==2.8.0
+```
 
+. Inspect the `custom-conversion.py` file in VS Code. The input document is in the `sample-data/custom` folder. The output documents will be placed in the `/tmp/custom-converted` folder.
++
+```python
+INPUT_FILE = "sample-data/custom/doclaynet-paper.pdf"
+OUTPUT_DIR = "/tmp/custom-converted"
+```
 
+. Scroll all the way to the bottom of the file. This file contains three methods demonstrating a default pipeline run, and pipeline customizations. The customization methods are commented out initially.
++
+```python
+...
+if __name__ == "__main__":
+    convert_default()
+    #convert_pypdfium_backend()
+    #convert_tesseract_ocr()
+...
+```
+
+. Inspect the `convert_default()` method. It uses the default pipeline options with no customization.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    *pipeline_options = PdfPipelineOptions()*
+
+    doc_converter = DocumentConverter(
+        format_options={
+            InputFormat.PDF: PdfFormatOption(
+                *pipeline_options=pipeline_options*
+            )
+        }
+    )
+...
+--
+
+. Run the program. You can safely ignore any warnings emitted.
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *python3 custom-conversion.py*
+--
+
+. Once the program completes, you should see the output Markdown file in the `/tmp/custom-converted` folder.
+
+. Next, inspect the `convert_pypdfium_backend()` method. Note the customization by setting various `pipeline_options` flags. Also note that we are using a different PDF conversion backend (`PyPdfium`) instead of the default PDF backend in Docling by taking advantage of Docling's pluggable architecture.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    *pipeline_options = PdfPipelineOptions()
+    pipeline_options.do_ocr = True
+    pipeline_options.do_table_structure = True
+    pipeline_options.table_structure_options.do_cell_matching = True
+    pipeline_options.generate_picture_images = True*
+
+    doc_converter = DocumentConverter(
+        format_options={
+            InputFormat.PDF: PdfFormatOption(
+                *pipeline_options=pipeline_options, 
+                backend=PyPdfiumDocumentBackend*
+            )
+        }
+    )
+...
+--
+
+. Finally, inspect the `def convert_tesseract_ocr()` method. We take advantage of the native Docling integration with the Tesseract OCR libraries and customize the pipeline to use it instead of the default OCR library in Docling (`EasyOCR`):
++
+[source,subs="verbatim,quotes"]
+--
+...
+    pipeline_options = PdfPipelineOptions()
+    ...
+    *pipeline_options.ocr_options = TesseractCliOcrOptions(
+        force_full_page_ocr=True)*
+...
+--
+
+. Before running the script, uncomment the two method calls at the bottom of the file as follows:
++
+[source,subs="verbatim,quotes"]
+--
+...
+if __name__ == "__main__":
+    convert_default()
+    *convert_pypdfium_backend()
+    convert_tesseract_ocr()*
+--
+
+. Run the script once again and verify the converted Markdown files in the `/tmp/custom-converted` folder. Experiment with different types of scanned PDF files to see the difference between the output from the different OCR libraries and backends.

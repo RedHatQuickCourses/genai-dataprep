@@ -3,3 +3,4 @@
 ** xref:multi-format.adoc[]
 ** xref:custom.adoc[]
 ** xref:image-table.adoc[]
+** xref:image-describe.adoc[]

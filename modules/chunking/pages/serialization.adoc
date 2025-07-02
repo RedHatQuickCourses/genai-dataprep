@@ -1,7 +1,137 @@
 = Serialization
 
-In this chapter, you will learn 
+A document **serializer** is a Docling abstraction that is initialized with a given **DoclingDocument** and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.
 
-== Objectives
+image::serial.png[title=Docling Serializers]
 
-* 
+Serializers are components responsible for converting processed document objects (like chunked documents or embedding results) into formats that can be saved, transferred, or indexed, typically for use in downstream applications like LLM pipelines, vector databases, or search systems.
+
+Docling defines abstractions for several objects in the contained within the `DoclingDocument`, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.
+
+This functionality is crucial for preparing documents for use in Generative AI applications, such as Retrieval-Augmented Generation (RAG), LLM fine-tuning, and question-answering systems.
+
+Docling provides out-of-the-box serializers for several popular formats, including:
+
+* Markdown
+* HTML
+* JSON
+
+## Lab: Docling Serializers
+
+### Pre-requisites
+
+* The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
+* Git CLI to clone the sample data files from GitHub
+* Visual Studio Code, or other editors to edit Python code
+
+### Steps
+
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
++
+[source,subs="verbatim,quotes"]
+--
+$ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
+--
+
+. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
++
+[source,subs="verbatim,quotes"]
+--
+$ *cd genai-apps/dataprep*
+--
+
+. If you have previously created a virtual environment and installed Docling, activate the venv.
++
+[source,subs="verbatim,quotes"]
+--
+$ *source venv/bin/activate*
+--
++
+Your prompt should change to indicate that you are now running in an isolated virtual environment.
+
+. Inspect the `serializers.py` file in VS Code. The input document is `sample-data/ub-pldi25.pdf`. The serialized ouptut will be printed to the terminal.
++
+```python
+...
+INPUT_DOC = Path("sample-data/ub-pldi25.pdf")
+...
+```
+
+. Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serialzer with customization respectively. The last two methods are commented out initially.
++
+```python
+...
+if __name__ == "__main__":
+    html_serializer()
+    #markdown_serializer()
+    #markdown_serializer_custom()
+...
+```
+
+. Inspect the `html_serializer()` method. Let's say you want to grab the `Introduction` section of the input document and serialize it to HTML. You can use the default `HTMLDocSerializer` to output HTML snippets. The `start_html_cue` and `stop_html_cue` markers indicate the starting and ending points in the document which must be extracted.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    converter = DocumentConverter()
+    doc = converter.convert(source=INPUT_DOC).document <1>
+    
+    serializer = *HTMLDocSerializer(doc=doc)* <2>
+    ser_result = serializer.serialize()
+    ser_text = ser_result.text
+
+    print(ser_text[ser_text.find(start_html_cue) : ser_text.find(stop_html_cue)]) <3>
+...
+--
++
+<1> Input document converted to `DoclingDocument` object
+<2> Pass the converted `DoclingDocument` object to the serializer
+<3> Extract the text between the start and end markers
+
+. Run the program. You can safely ignore any warnings emitted. The HTML output is printed to the terminal. You can redirect the output to a file and inspect it. Note that only the `Introduction` section is extracted and serialized.
++
+[source,subs="verbatim,quotes"]
+--
+$ (venv) *python3 serializers.py*
+...
+--
++
+image::html-out.png[title=HTML Serializer output]
+
+. Next, inspect the `markdown_serializer()` method. Note the use of the `MarkdownDocSerializer`.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    *serializer = MarkdownDocSerializer(doc=doc)*
+...
+--
+
+. Before running the script, comment the `html_serializer()` method, and uncomment the `markdown_serializer()` method call at the bottom of the file as follows:
++
+[source,subs="verbatim,quotes"]
+--
+...
+if __name__ == "__main__":
+    #html_serializer()
+    *markdown_serializer()*
+    #markdown_serializer_custom()
+--
+
+. Run the script once again. The output is in Markdown format.
++
+image::md-out.png[title=Markdown serializer output]
+
+. Finally, inspect and run the `markdown_serializer_custom()` method. We customize the Markdown serializer by asking it to serialize the tables not in the default markdown style, but in what is called `Triplet` table format, which is amenable for ingestion into certain LLMs and provides better semantic lookup results in RAG pipelines. Don't forget to uncomment the `markdown_serializer_custom()` method before running.
++
+[source,subs="verbatim,quotes"]
+--
+...
+    serializer = MarkdownDocSerializer(
+        doc=doc,
+        *table_serializer=TripletTableSerializer()*,
+    )
+...
+--
++
+image::md-out-triplet.png[title=Triplet Table Serializer output]
