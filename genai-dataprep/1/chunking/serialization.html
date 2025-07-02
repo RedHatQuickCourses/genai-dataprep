@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Serialization :: Data Preparation for Gen AI Applications</title>
     <link rel="prev" href="hybrid.html">
-    <link rel="next" href="../dpk/index.html">
+    <link rel="next" href="../rag/index.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -85,10 +85,13 @@
     <a class="nav-link" href="../conversion/multi-format.html">Multi-format</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../conversion/custom.html">Custom</a>
+    <a class="nav-link" href="../conversion/custom.html">Customizing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conversion/image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-describe.html">Image Captions</a>
   </li>
 </ul>
   </li>
@@ -100,6 +103,9 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Chunking &amp; Serialization</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chunking.html">Why Chunking?</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="hybrid.html">Hybrid Chunking</a>
   </li>
@@ -113,6 +119,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
 <ul class="nav-list">
@@ -120,13 +133,6 @@
     <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
   </li>
 </ul>
   </li>
@@ -173,21 +179,220 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will learn</p>
+<p>A document <strong>serializer</strong> is a Docling abstraction that is initialized with a given <strong>DoclingDocument</strong> and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/serial.png" alt="serial">
+</div>
+<div class="title">Figure 1. Docling Serializers</div>
+</div>
+<div class="paragraph">
+<p>Serializers are components responsible for converting processed document objects (like chunked documents or embedding results) into formats that can be saved, transferred, or indexed, typically for use in downstream applications like LLM pipelines, vector databases, or search systems.</p>
+</div>
+<div class="paragraph">
+<p>Docling defines abstractions for several objects in the contained within the <code>DoclingDocument</code>, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.</p>
+</div>
+<div class="paragraph">
+<p>This functionality is crucial for preparing documents for use in Generative AI applications, such as Retrieval-Augmented Generation (RAG), LLM fine-tuning, and question-answering systems.</p>
+</div>
+<div class="paragraph">
+<p>Docling provides out-of-the-box serializers for several popular formats, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Markdown</p>
+</li>
+<li>
+<p>HTML</p>
+</li>
+<li>
+<p>JSON</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<h2 id="_lab_docling_serializers"><a class="anchor" href="#_lab_docling_serializers"></a>Lab: Docling Serializers</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The Docling Python library must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
+</li>
+<li>
+<p>Git CLI to clone the sample data files from GitHub</p>
+</li>
+<li>
+<p>Visual Studio Code, or other editors to edit Python code</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>*</p>
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
+</div>
+</li>
+<li>
+<p>Inspect the <code>serializers.py</code> file in VS Code. The input document is <code>sample-data/ub-pldi25.pdf</code>. The serialized ouptut will be printed to the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+INPUT_DOC = Path("sample-data/ub-pldi25.pdf")
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serialzer with customization respectively. The last two methods are commented out initially.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+if __name__ == "__main__":
+    html_serializer()
+    #markdown_serializer()
+    #markdown_serializer_custom()
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inspect the <code>html_serializer()</code> method. Let&#8217;s say you want to grab the <code>Introduction</code> section of the input document and serialize it to HTML. You can use the default <code>HTMLDocSerializer</code> to output HTML snippets. The <code>start_html_cue</code> and <code>stop_html_cue</code> markers indicate the starting and ending points in the document which must be extracted.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+    converter = DocumentConverter()
+    doc = converter.convert(source=INPUT_DOC).document <i class="conum" data-value="1"></i><b>(1)</b>
+
+    serializer = <strong>HTMLDocSerializer(doc=doc)</strong> <i class="conum" data-value="2"></i><b>(2)</b>
+    ser_result = serializer.serialize()
+    ser_text = ser_result.text
+
+    print(ser_text[ser_text.find(start_html_cue) : ser_text.find(stop_html_cue)]) <i class="conum" data-value="3"></i><b>(3)</b>
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Input document converted to <code>DoclingDocument</code> object</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Pass the converted <code>DoclingDocument</code> object to the serializer</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Extract the text between the start and end markers</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the program. You can safely ignore any warnings emitted. The HTML output is printed to the terminal. You can redirect the output to a file and inspect it. Note that only the <code>Introduction</code> section is extracted and serialized.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 serializers.py</strong>
+...</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/html-out.png" alt="html out">
+</div>
+<div class="title">Figure 2. HTML Serializer output</div>
+</div>
+</li>
+<li>
+<p>Next, inspect the <code>markdown_serializer()</code> method. Note the use of the <code>MarkdownDocSerializer</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+    <strong>serializer = MarkdownDocSerializer(doc=doc)</strong>
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Before running the script, comment the <code>html_serializer()</code> method, and uncomment the <code>markdown_serializer()</code> method call at the bottom of the file as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+if <em>name</em> == "<em>main</em>":
+    #html_serializer()
+    <strong>markdown_serializer()</strong>
+    #markdown_serializer_custom()</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the script once again. The output is in Markdown format.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/md-out.png" alt="md out">
+</div>
+<div class="title">Figure 3. Markdown serializer output</div>
+</div>
+</li>
+<li>
+<p>Finally, inspect and run the <code>markdown_serializer_custom()</code> method. We customize the Markdown serializer by asking it to serialize the tables not in the default markdown style, but in what is called <code>Triplet</code> table format, which is amenable for ingestion into certain LLMs and provides better semantic lookup results in RAG pipelines. Don&#8217;t forget to uncomment the <code>markdown_serializer_custom()</code> method before running.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+    serializer = MarkdownDocSerializer(
+        doc=doc,
+        <strong>table_serializer=TripletTableSerializer()</strong>,
+    )
+...</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/md-out-triplet.png" alt="md out triplet">
+</div>
+<div class="title">Figure 4. Triplet Table Serializer output</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="hybrid.html">Hybrid Chunking</a></span>
-  <span class="next"><a href="../dpk/index.html">Data Prep Kit (DPK)</a></span>
+  <span class="next"><a href="../rag/index.html">RAG with Docling</a></span>
 </nav>
 </article>
   </div>

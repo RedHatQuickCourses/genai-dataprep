@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Hybrid Chunking :: Data Preparation for Gen AI Applications</title>
-    <link rel="prev" href="index.html">
+    <title>Hybrid Chunking in Docling :: Data Preparation for Gen AI Applications</title>
+    <link rel="prev" href="chunking.html">
     <link rel="next" href="serialization.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -85,10 +85,13 @@
     <a class="nav-link" href="../conversion/multi-format.html">Multi-format</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../conversion/custom.html">Custom</a>
+    <a class="nav-link" href="../conversion/custom.html">Customizing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conversion/image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-describe.html">Image Captions</a>
   </li>
 </ul>
   </li>
@@ -100,6 +103,9 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Chunking &amp; Serialization</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chunking.html">Why Chunking?</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="hybrid.html">Hybrid Chunking</a>
   </li>
@@ -113,6 +119,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
 <ul class="nav-list">
@@ -120,13 +133,6 @@
     <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
   </li>
 </ul>
   </li>
@@ -169,24 +175,231 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Hybrid Chunking</h1>
+<h1 class="page">Hybrid Chunking in Docling</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this chapter, you will learn</p>
+<p>A <strong>chunker</strong> is a Docling abstraction that, given a <strong>DoclingDocument</strong>, returns a stream of <em>chunks</em>, each of which captures some part of the document as a string accompanied by <em>metadata</em>(location of chunk in document, size, and more).</p>
+</div>
+<div class="paragraph">
+<p>You have already seen many examples in the previous sections about Docling&#8217;s awareness of a document&#8217;s hierarchical structure. Docling provides a default hierarchical chunker that splits text in a document based on headings, sections, paragraphs, tables and other objects.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>HybridChunker</strong> uses a hybrid approach, by applying tokenization aware refinements on top of document based hierarchical chunking.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<h2 id="_hybrid_chunking_process"><a class="anchor" href="#_hybrid_chunking_process"></a>Hybrid Chunking Process</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>*</p>
+<p>The Docling hybrid chunker provides a sophisticated, multi-step process for breaking down large documents into smaller, more meaningful pieces. The hybrid chnuker combines a high level understanding of a document&#8217;s structure with a low level awareness of the token based limitations of LLMs.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/hybrid-chunker.png" alt="hybrid chunker">
+</div>
+<div class="title">Figure 1. Docling Hybrid Chunker</div>
+</div>
+<div class="paragraph">
+<p>The hybrid chunker first employs <em>hierarchical chunking</em>, that is, the inherent structure of the document is analyzed and the text is split accordingly. Instead of arbitrarily splitting the text into fixed-size blocks, it identifies and separates content based on its logical organization in the document hierarchy. This means that headings, subheadings, paragraphs, lists, and tables are recognized as distinct units.</p>
+</div>
+<div class="paragraph">
+<p>By preserving this natural hierarchy, the resulting chunks are more coherent and contextually complete, preventing sentences from being abruptly cut off and related ideas from being scattered across different segments. This method is particularly effective for structured documents like reports, articles, and technical manuals, as it maintains intended organization of information.</p>
+</div>
+<div class="paragraph">
+<p>Following this initial structural breakdown, tokenization aware refinements are applied. This second step addresses the practical constraints of LLMs context windows. The refinements involve several key actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Splitting Oversized Chunks</strong>: If a chunk created during the hierarchical step exceeds the maximum token limit of the target model, it is further divided. This ensures that every chunk can be processed by the model without truncation, which would lead to a loss of information.</p>
+</li>
+<li>
+<p><strong>Merging Undersized Chunks</strong>: Conversely, to avoid an overabundance of very small, potentially less informative chunks, the system may merge adjacent, undersized chunks. This is often done when the combined chunks remain within the token limit and are semantically related, for instance, consecutive short paragraphs under the same sub-heading.</p>
+</li>
+<li>
+<p><strong>Boundary Optimization</strong>: The process of splitting and merging is not random. It is "tokenization-aware," meaning it considers the token boundaries to make more intelligent decisions. For example, a split might be made at a sentence boundary rather than in the middle of a sentence to preserve grammatical integrity.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In essence, Docling&#8217;s Hybrid Chunking provides the best of both worlds. The document based hierarchical approach provides semantically rich and contextually sound chunks, while the tokenization aware refinements ensure these chunks are optimized for the practical requirements of AI models. This dual-layered strategy results in a more effective and efficient processing of documents, leading to improved performance in tasks such as retrieval-augmented generation (RAG), question answering, and document summarization.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <em>HybridChunker</em> defaults to using <strong>sentence-transformers/all-MiniLM-L6-v2</strong> as the default tokenizer. This is a popular and generally effective model for sentence similarity tasks, but it may not be the optimal choice for all applications. You can use other tokenizers from HuggingFace depending on your needs.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_applying_hybrid_chunking"><a class="anchor" href="#_lab_applying_hybrid_chunking"></a>Lab: Applying Hybrid Chunking</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The Docling Python library must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
+</li>
+<li>
+<p>Git CLI to clone the sample data files from GitHub</p>
+</li>
+<li>
+<p>Visual Studio Code, or other editors to edit Python code</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
+</div>
+</li>
+<li>
+<p>Inspect the <code>hybrid-chunking.py</code> file in VS Code. The input document is <code>sample-data/pg2680.html</code>. The tokenized chunks will be printed to the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+input_file = Path("sample-data/pg2680.html")
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Scroll all the way to the bottom of the file. This file contains two methods demonstrating the hybrid chunker with default settings, and a second method that customizes the tokenizer with the number of tokens per chunk . The second method is commented out initially.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+if __name__ == "__main__":
+    default_chunker()
+    #customized_chunker()
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inspect the <code>default_chunker()</code> method. It uses the default <code>HybridChunker()</code> options with no customization.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+def default_chunker():
+
+    <strong>chunker = HybridChunker()</strong> <i class="conum" data-value="1"></i><b>(1)</b>
+    chunk_iter = chunker.chunk(dl_doc=doc) <i class="conum" data-value="2"></i><b>(2)</b>
+...</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Instantiate the default <code>HybridChunker</code> instance</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Pass the converted <code>DoclingDocument</code> object to the chunker</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the program. You can safely ignore any warnings emitted. The chunks are printed to the terminal. You can redirect the output to a file and inspect it.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 hybrid-chunking.py</strong>
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how the chunker has split the text roughly based on the hierarchy of the document (chapters, paragraphs) and augmented the output with metadata about where the chunk is located in the document hierarchy.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/default-chunker.png" alt="default chunker">
+</div>
+<div class="title">Figure 2. Default Hybrid Chunker Output</div>
+</div>
+</li>
+<li>
+<p>Next, inspect the <code>customized_chunker()</code> method. Note the use of the <code>sentence-transformers/all-MiniLM-L6-v2</code> tokenizer and the <code>MAX_TOKENS</code> setting. Pss the custom tokenizer instance to the <code>HybridChunker</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+tokenizer = HuggingFaceTokenizer(
+    <strong>tokenizer=AutoTokenizer.from_pretrained(EMBED_MODEL_ID),
+    max_tokens=MAX_TOKENS</strong>
+    )
+
+    chunker = HybridChunker(
+        <strong>tokenizer=tokenizer</strong>,
+        merge_peers=True,
+    )
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Before running the script, comment the first method, and uncomment the second method call at the bottom of the file as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+if <em>name</em> == "<em>main</em>":
+    <strong>#default_chunker()
+    customized_chunker()</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the script once again. Notice how the token count is always less than <code>MAX_TOKENS</code>. You can experiment with different token sizes and re-run the script.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/custom-chunker.png" alt="custom chunker">
+</div>
+<div class="title">Figure 3. Customized Hybrid Chunker</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Chunking &amp; Serialization</a></span>
+  <span class="prev"><a href="chunking.html">Why Chunking?</a></span>
   <span class="next"><a href="serialization.html">Serialization</a></span>
 </nav>
 </article>

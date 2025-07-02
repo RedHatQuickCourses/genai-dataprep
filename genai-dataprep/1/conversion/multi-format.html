@@ -85,10 +85,13 @@
     <a class="nav-link" href="multi-format.html">Multi-format</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="custom.html">Custom</a>
+    <a class="nav-link" href="custom.html">Customizing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="image-describe.html">Image Captions</a>
   </li>
 </ul>
   </li>
@@ -100,6 +103,9 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../chunking/index.html">Chunking &amp; Serialization</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/chunking.html">Why Chunking?</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chunking/hybrid.html">Hybrid Chunking</a>
   </li>
@@ -113,6 +119,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
 <ul class="nav-list">
@@ -120,13 +133,6 @@
     <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
   </li>
 </ul>
   </li>
@@ -173,13 +179,46 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous section, you learnt how to programatically convert a single PDF file using the Docling Python library. In real-world use-cases, you will be required to convert multiple docouments at scale in batch mode.</p>
+<p>Docling supports automatically detecting supported input formats and converting them to several output formats amenable for ingestion into LLMs.</p>
 </div>
 <div class="paragraph">
-<p>The Docling Python library provides you a convienient way to achieve this via the <code>convert_all</code> method in the <code>DocumentConverter</code> class. It takes a list of <code>Path</code> variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size and more.</p>
+<p>See <a href="https://docling-project.github.io/docling/usage/supported_formats/" target="_blank" rel="noopener">Supported Input and Output Formats</a> page for the full list of input and output formats supported by Docling.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.DocumentConverter.convert_all" target="_blank" rel="noopener">the convert_all method</a> API documentation for the full parameter list.</p>
+<p>You can control the allowed input formats using the <code>allowed_formats</code> parameter to the <code>DocumentConverter</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+doc_converter = (
+        DocumentConverter(
+            allowed_formats=[
+                InputFormat.PDF,
+                InputFormat.IMAGE,
+                InputFormat.DOCX,
+                InputFormat.HTML,
+                InputFormat.PPTX,
+                InputFormat.ASCIIDOC,
+                InputFormat.CSV,
+                InputFormat.MD,
+            ],
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Input formats not listed in the <code>allowed_formats</code> list are ignored. You can also simply use Python&#8217;s <code>glob</code> method in the <code>Path</code> class to filter out files you don&#8217;t want converted:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+allowed_extensions = ["*.pdf", "*.docx", "*.xlsx", "*.pptx", "*.csv", "*.asciidoc"]
+...
+input_doc_paths: list[Path] = []
+
+for ext in allowed_extensions:
+    input_doc_paths.extend(input_path.glob(ext))
+...</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -234,93 +273,59 @@
 </div>
 </li>
 <li>
-<p>Inspect the <code>batch-conversion.py</code> file in VS Code. The input documents are in the <code>sample-data/batch</code> folder. The output documents will be placed in the <code>/tmp/batch-converted</code> folder.</p>
+<p>Inspect the <code>multi-format.py</code> file in VS Code. The input documents are in the <code>sample-data/multi-format</code> folder. The output documents will be placed in the <code>/tmp/multi-converted</code> folder.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">INPUT_DIR = "sample-data/batch"
-OUTPUT_DIR = "/tmp/batch-converted"
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">INPUT_DIR = "sample-data/multi-format"
+OUTPUT_DIR = "/tmp/multi-converted"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a list of supported file formats and filter them using the <code>glob</code> method on the <code>Path</code> class:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+allowed_extensions = ["<strong>.pdf", "</strong>.docx", "<strong>.xlsx", "</strong>.pptx", "<strong>.csv", "</strong>.asciidoc"]
 ...
-def main():
-...
-  input_doc_paths: list[Path] = list(input_path.glob("*.pdf")) <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Construct <code>Path</code> objects by fetching all files with ".pdf" extension</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Docling provides sane defaults for processing PDF files using the <code>PdfPipelineOptions</code> class. You can customize the pipeline by changing various fields in this class. In our case, we set the option to generate images of each page (in memory) for further processing in the pipeline.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs"> pipeline_options = PdfPipelineOptions()
- <strong>pipeline_options.generate_page_images = True</strong></code></pre>
+
+input_doc_paths: list[Path] = []
+
+for ext in allowed_extensions:
+        input_doc_paths.extend(input_path.glob(ext))
+...</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>The conversion magic happens using the <code>DocumentConverter</code> class. This class converts the input files into the unified <code>DoclingDocument</code> class, which can be exported to various output formats, and can also be used for further custom processing before outputting the result.</p>
+<p>Use the <code>convert_all</code> method in the <code>DocumentConverter</code> class to convert all the input documents to <code>DoclingDocument</code> objects.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">doc_converter = DocumentConverter(
-    format_options={
-        InputFormat.PDF: PdfFormatOption(
-            <strong>pipeline_options=pipeline_options, <i class="conum" data-value="1"></i><b>(1)</b>
-            backend=DoclingParseV4DocumentBackend</strong> <i class="conum" data-value="2"></i><b>(2)</b>
-        )
-    }
-)</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+doc_converter = DocumentConverter()
+
+    conv_results = <strong>doc_converter.convert_all</strong>(
+    input_doc_paths,
+    raises_on_error=False,
+)
+...</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The pipeline options set previously</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Docling supports multiple backends. Here we use the default <code>DoclingParseV4DocumentBackend</code>. See <a href="https://github.com/docling-project/docling/tree/main/docling/backend" class="bare">https://github.com/docling-project/docling/tree/main/docling/backend</a> for more backends</td>
-</tr>
-</table>
 </div>
 </li>
 <li>
-<p>Convert the input document using the <code>convert_all</code> method</p>
+<p>Finally, export the in-memory representation of the <code>DoclingDocument</code> objects to JSON format.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">conv_results = <strong>doc_converter.convert_all</strong>(
-    input_doc_paths, <i class="conum" data-value="1"></i><b>(1)</b>
-    raises_on_error=False, <i class="conum" data-value="2"></i><b>(2)</b>
-)</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The list of <code>Path</code> objects referencing the input PDF files.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Set flag to <strong>NOT</strong> halt processing if there is an error during conversion. Setting this flag to <code>True</code> will halt the processing pipeline if an error occurs.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Finally, export the in memory representation of the <code>DoclingDocument</code> object to Markdown format. Use the VS Code autocomplete suggestions to view other <code>save_as*</code> methods available on the <code>DoclingDocument</code> object.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">conv_res.document.save_as_markdown(
-    output_path / f"{out_file_name}.md",
-    image_mode=ImageRefMode.PLACEHOLDER
-)</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+for conv_res in conv_results:
+    out_file_name = conv_res.input.file.stem
+
+    conv_res.document.save_as_json(
+        output_path / f"{out_file_name}.json",
+        image_mode=ImageRefMode.PLACEHOLDER
+    )
+)
+...</code></pre>
 </div>
 </div>
 </li>
@@ -328,17 +333,17 @@ def main():
 <p>Run the program. You can safely ignore any warnings emitted.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 batch-conversion.py</strong></code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 multi-format.py</strong></code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Once the program completes, you should see Markdown files in the <code>/tmp/batch-converted</code> folder corresponding to the input files with a <code>*.md</code> extension. Preview the markdown rendering in VS Code or a Markdown editor and verify that headings, paragraphs, and tables are converted correctly.</p>
+<p>Once the program completes, you should see Markdown files in the <code>/tmp/multi-converted</code> folder corresponding to the input files with a <code>*.json</code> extension. Preview the converted JSON files in VS Code, and verify that the documents are converted correctly. Hierarchial elements (headings, tables, paragraphs) in the input are converted to corresponding nested JSON objects in the output.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/batch-converted.png" alt="batch converted">
+<img src="_images/multi-converted.png" alt="multi converted">
 </div>
-<div class="title">Figure 1. Batch converted Markdown files</div>
+<div class="title">Figure 1. Multiple formats converted to JSON files</div>
 </div>
 </li>
 </ol>
@@ -347,7 +352,7 @@ def main():
 </div>
 <nav class="pagination">
   <span class="prev"><a href="batch.html">Batch</a></span>
-  <span class="next"><a href="custom.html">Custom</a></span>
+  <span class="next"><a href="custom.html">Customizing</a></span>
 </nav>
 </article>
   </div>

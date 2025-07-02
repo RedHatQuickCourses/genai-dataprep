@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Parsing Documents with Images and Tables :: Data Preparation for Gen AI Applications</title>
     <link rel="prev" href="custom.html">
-    <link rel="next" href="../chunking/index.html">
+    <link rel="next" href="image-describe.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -85,10 +85,13 @@
     <a class="nav-link" href="multi-format.html">Multi-format</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="custom.html">Custom</a>
+    <a class="nav-link" href="custom.html">Customizing</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="image-describe.html">Image Captions</a>
   </li>
 </ul>
   </li>
@@ -100,6 +103,9 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../chunking/index.html">Chunking &amp; Serialization</a>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/chunking.html">Why Chunking?</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chunking/hybrid.html">Hybrid Chunking</a>
   </li>
@@ -113,6 +119,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
 <ul class="nav-list">
@@ -120,13 +133,6 @@
     <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
   </li>
 </ul>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../rag/index.html">RAG with Docling</a>
   </li>
 </ul>
   </li>
@@ -173,42 +179,198 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Docling&#8217;s high level architecture is illustrated below.</p>
+<p>Once you convert an input document into the unified <code>DoclingDocument</code> object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells and textual items.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_concepts_and_terminology"><a class="anchor" href="#_concepts_and_terminology"></a>Concepts and Terminology</h2>
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_processing_pipeline"><a class="anchor" href="#_processing_pipeline"></a>Processing pipeline</h3>
-
+<div class="ulist">
+<ul>
+<li>
+<p>The Docling Python library must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
+</li>
+<li>
+<p>Git CLI to clone the sample data files from GitHub</p>
+</li>
+<li>
+<p>Visual Studio Code, or other editors to edit Python code</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="_document_parsers"><a class="anchor" href="#_document_parsers"></a>Document Parsers</h3>
-
 </div>
-<div class="sect2">
-<h3 id="_doclingdocument"><a class="anchor" href="#_doclingdocument"></a>DoclingDocument</h3>
-
 </div>
-<div class="sect2">
-<h3 id="_serialization"><a class="anchor" href="#_serialization"></a>Serialization</h3>
-
+<div class="sect1">
+<h2 id="_lab_exporting_tables"><a class="anchor" href="#_lab_exporting_tables"></a>Lab: Exporting Tables</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
 </div>
-<div class="sect2">
-<h3 id="_chunking"><a class="anchor" href="#_chunking"></a>Chunking</h3>
-
 </div>
-<div class="sect2">
-<h3 id="_plugins"><a class="anchor" href="#_plugins"></a>Plugins</h3>
+</li>
+<li>
+<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
+</div>
+</li>
+<li>
+<p>Inspect the <code>export-tables.py</code> file in VS Code. The input document is in the <code>sample-data/batch</code> folder. The output documents will be placed in the <code>/tmp/export-tables</code> folder.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">INPUT_FILE = "sample-data/batch/2206.01062.pdf"
+OUTPUT_DIR = "/tmp/export-tables/"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the <code>main()</code> method, instantiate a default <code>DocumentConverter</code> class instance and convert the input document:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+    doc_converter = DocumentConverter()
 
+    conv_res = doc_converter.convert(input_file)
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>On the <code>DoclingDocument</code> object, Docling provides a <code>tables</code> method that returns a list of <code>TableItem</code> objects representing all the tables in the document. We take advantage of Docling&#8217;s integration with the popular <code>Pandas</code> library to export a <code>DataFrame</code> object that we can convieniently query and manipulate.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+for table_ix, table in enumerate(<strong>conv_res.document.tables</strong>):
+    table_df = <strong>table.export_to_dataframe()</strong>
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Finally, we export the in-memory representation of the <code>DataFrame</code> objects to a CSV file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+    table_df.to_csv(element_csv_filename)
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the program. You can safely ignore any warnings emitted. You should see some table output in markdown format.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 export-tables.py</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once the program completes, you should see CSV files in the <code>/tmp/export-tables</code> folder corresponding to each of the tables in the document with a <code>*.csv</code> extension.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/export-tables.png" alt="export tables">
+</div>
+<div class="title">Figure 1. Tables exported to CSV files</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_exporting_images_and_image_snapshots"><a class="anchor" href="#_lab_exporting_images_and_image_snapshots"></a>Lab: Exporting Images and Image Snapshots</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inspect the code in the <code>export-images.py</code> file. The input file for this lab is <code>sample-data/penrose.pdf</code>, a document that has a number of embedded images. The images are extracted and saved to the <code>/tmp/export-images</code> folder after processing.</p>
+</li>
+<li>
+<p>In the <code>main()</code> method, we customize the pipeline by asking Docling to generate images of each page in the input document as well as extract images from it.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
+    pipeline_options = PdfPipelineOptions()
+    pipeline_options.images_scale = 2.0
+    pipeline_options.generate_page_images = True
+    pipeline_options.generate_picture_images = True
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once the document is converted, we iterate over each page in the document, and take a snapshot image of each page and save it in the <code>/tmp/export-images</code> folder. Once again, Docling&#8217;s native integration with the popular Python <code>Pillow</code> library provides a nice convienient abstraction for us to export the image objects to different formats.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+    for page_no, page in <strong>conv_res.document.pages.items()</strong>:
+        page_no = page.page_no
+        page_image_filename = output_path / f"{out_file_name}-page-{page_no}.png"
+
+        with page_image_filename.open("wb") as fp:
+            <strong>page.image.pil_image.save(fp, format="PNG")</strong>
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Next, we iterate over the hierarchial tree of nested objects in the <code>DoclingDocument</code> object and extract images (<code>PictureItem</code> elements) from it. We serialize each of the extracted images in the <code>/tmp/export-images</code> folder.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">...
+for element, _level in conv_res.document.<strong>iterate_items()</strong>:
+    if isinstance(element, <strong>PictureItem</strong>):
+        picture_counter += 1
+        element_image_filename = (
+            output_path / f"{out_file_name}-picture-{picture_counter}.png"
+        )
+...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Continue using the virtual environment from the previous lab. If you are not in the virtual environment, active it and then run the <code>export-images.py</code> file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 export-images.py</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the extracted page images and the individual images in the document are exported in the <code>/tmp/export-images</code> folder.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/export-images.png" alt="export images">
+</div>
+<div class="title">Figure 2. Images exported to PNG files</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="custom.html">Custom</a></span>
-  <span class="next"><a href="../chunking/index.html">Chunking &amp; Serialization</a></span>
+  <span class="prev"><a href="custom.html">Customizing</a></span>
+  <span class="next"><a href="image-describe.html">Image Captions</a></span>
 </nav>
 </article>
   </div>
