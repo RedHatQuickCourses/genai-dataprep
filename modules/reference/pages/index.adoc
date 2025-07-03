@@ -1,0 +1,8 @@
+# Other Misc Material
+
+* https://catalog.demo.redhat.com/catalog?item=babylon-catalog-dev/summit-2025.lb1942-instructlab-docling-and-elyra.dev&utm_source=webapp&utm_medium=share-link[InstructLab, Docling, & Elyra - Auto generate knowledge files from multiple data formats^]
+* https://catalog.demo.redhat.com/catalog?item=babylon-catalog-dev/sandboxes-gpte.quarkus-rag-aiops.dev&utm_source=webapp&utm_medium=share-link[Building Intelligent Applications with Python and RAG: From Raw Data to Real-Time Insights^]
+* https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.ocp-demo-with-llm-and-rag.prod&utm_source=webapp&utm_medium=share-link[https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.ocp-demo-with-llm-and-rag.prod&utm_source=webapp&utm_medium=share-link^]
+* https://alain-airom.medium.com/what-are-vision-language-models-vlms-and-how-do-they-work-592ad38e0d3e[What Are Vision-Language Models (VLMs) and How Do They Work?^]
+* https://alain-airom.medium.com/vlm-pipeline-with-docling-4789fd73af86[VLM Pipeline with Docling — An update^]
+* https://blog.gopenai.com/trying-and-using-docling-parse-1000254918f5[Using Docling Parse to extract text, paths and bitmap images^]

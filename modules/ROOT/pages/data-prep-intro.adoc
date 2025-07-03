@@ -46,3 +46,7 @@ Below is a short video that introduces Docling features and demonstrates how Doc
 video::BWxdLm1KqTU[youtube,title=How Docling turns documents into usable AI data,width=700,height=450]
 
 In the next chapter, you will learn how to install and use Docling to extract data from documents in various formats.
+
+== References
+
+* https://ai.gopubby.com/docling-by-ibm-the-tool-that-claims-to-make-document-parsing-effortless-but-does-it-really-4d31fa1786bf[Docling by IBM: The Tool that Makes Document Parsing Effortless^]

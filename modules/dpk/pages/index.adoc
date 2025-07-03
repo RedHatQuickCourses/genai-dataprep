@@ -34,3 +34,7 @@ The core components of the architecture include:
 * **Runtime Abstraction:** The kit abstracts the underlying execution engine (Python, Ray, or Spark), allowing developers to write their data preparation logic once and run it across different environments without significant code changes.
 
 * **Pipeline Orchestration:** The framework enables the chaining of multiple transformers together to create a complete data preparation workflow. This allows for a clear and organized approach to complex data preprocessing tasks.
+
+== References
+
+* https://developer.ibm.com/components/data-prep-kit/[Data Prep Kit (DPK): Data preparation for LLM application developers^]

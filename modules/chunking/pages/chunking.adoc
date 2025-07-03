@@ -57,6 +57,13 @@ There is no single, perfect, "optimum" chunk size. Instead, you arrive at an opt
 | *Lower.* More likely to contain the full, unbroken answer to a query.
 |===
 
+== References
+
+* https://medium.com/ai-simplified-in-plain-english/from-jargon-to-genius-chunking-as-the-key-to-explainable-ai-generation-c105e5ed9b71[From Jargon to Genius: Chunking as the Key to Explainable AI Generation^]
+* https://ai.gopubby.com/chunking-technique-for-rags-e2346ce70b85[Chunking Technique For RAG^]
+* https://medium.com/data-science/rag-101-chunking-strategies-fdc6f6c2aaec[RAG 101: Chunking Strategies^]
+* https://medium.com/data-science/the-art-of-chunking-boosting-ai-performance-in-rag-architectures-acdbdb8bdc2b[The Art of Chunking: Boosting AI Performance in RAG Architectures^]
+* https://medium.com/the-ai-forum/semantic-chunking-for-rag-f4733025d5f5[Semantic Chunking for RAG^]
 
 
 
