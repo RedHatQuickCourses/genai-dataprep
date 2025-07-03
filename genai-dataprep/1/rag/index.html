@@ -3,11 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Putting it all Together: Retrieval Augmented Generation (RAG) :: Data Preparation for Gen AI Applications</title>
+    <title>Retrieval Augmented Generation (RAG) :: Data Preparation for Gen AI Applications</title>
     <link rel="prev" href="../chunking/serialization.html">
-    <link rel="next" href="../dpk/index.html">
-    <meta name="description" content="A non-technical guide to understanding Retrieval Augmented Generation (RAG) and its implementation.">
-    <meta name="keywords" content="RAG, AI, LLM, Docling, ollama, Milvus, LangChain">
+    <link rel="next" href="rag.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -121,7 +119,16 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="index.html">RAG with Docling</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rag.html">RAG</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rag-lab.html">Lab: Data Preparation for RAG</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -135,6 +142,13 @@
     <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference/index.html">Other Misc Material</a>
   </li>
 </ul>
   </li>
@@ -167,7 +181,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Data Preparation for Gen AI Applications</a></li>
-    <li><a href="index.html">RAG with Docling</a></li>
+    <li><a href="index.html">Retrieval Augmented Generation (RAG)</a></li>
   </ul>
 </nav>
 </div>
@@ -176,556 +190,35 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Putting it all Together: Retrieval Augmented Generation (RAG)</h1>
-<div class="sect1">
-<h2 id="_the_problem_smart_ai_with_a_limited_memory"><a class="anchor" href="#_the_problem_smart_ai_with_a_limited_memory"></a>The Problem: Smart AI with a Limited Memory</h2>
+<h1 class="page">Retrieval Augmented Generation (RAG)</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Imagine you have a brilliant assistant, a Large Language Model (LLM) like ChatGPT. It can write essays, answer questions, and even code. But there&#8217;s a catch: its knowledge is frozen in time. It only knows what it was taught during its initial training. It has no access to your company&#8217;s private documents, the latest news, or your personal notes.</p>
-</div>
-<div class="paragraph">
-<p>This leads to a few key problems:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Outdated Information:</strong> The AI can&#8217;t tell you about events that happened after its training.</p>
-</li>
-<li>
-<p><strong>Lack of Specific Context:</strong> It doesn&#8217;t know the details of your specific project, your company&#8217;s internal policies, or information captured in documents of various formats (PDF, MS Office, HTML, and more).</p>
-</li>
-<li>
-<p><strong>Potential for "Hallucinations":</strong> When it doesn&#8217;t know an answer, it might make one up, which can be misleading or just plain wrong.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>So, how do we give this brilliant AI access to specific, up-to-date information without the massive cost and complexity of retraining it from scratch?</p>
+<p>In this chapter, you will learn about how Docling enables the process of Retrieval Augmented Generation (RAG) to generate up to date response from LLMs beyond the dataset thaty they have been trained on.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_solution_retrieval_augmented_generation_rag"><a class="anchor" href="#_the_solution_retrieval_augmented_generation_rag"></a>The Solution: Retrieval Augmented Generation (RAG)</h2>
+<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Enter <strong>Retrieval Augmented Generation (RAG)</strong>. It&#8217;s a clever way to give your AI a "cheat sheet" before it answers a question. Instead of just relying on its internal memory, the AI first <strong>retrieves</strong> relevant information from a trusted knowledge source and then uses that information to <strong>generate</strong> a more accurate and context-aware response.</p>
-</div>
-<div class="paragraph">
-<p>Think of it like an open-book exam. The AI doesn&#8217;t have to have everything memorized. It just needs to be good at finding the right information in the book (your data) and then using that information to craft a perfect answer.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">A Simple Analogy</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Without RAG:</strong> Asking an LLM a question is like asking a historian about a current event. They can give you a well-reasoned answer based on their historical knowledge, but it won&#8217;t be up-to-the-minute.</p>
+<p>Describe the concepts, components and terminology used in RAG</p>
 </li>
 <li>
-<p><strong>With RAG:</strong> It&#8217;s like giving that historian a live news feed. They can now combine their deep understanding with real-time information to give you a much more complete and accurate picture.</p>
+<p>Describe the concept of embeddings and embedding models</p>
+</li>
+<li>
+<p>Learn how to use the LangChain framework to assemble a RAG pipeline</p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_how_rag_works_a_three_step_process"><a class="anchor" href="#_how_rag_works_a_three_step_process"></a>How RAG Works: A Three Step Process</h3>
-<div class="paragraph">
-<p>The magic of RAG happens in three main steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Retrieval:</strong> When you ask a question, the system doesn&#8217;t immediately go to the LLM for a response. First, it searches through your documents, databases, or other knowledge sources to find snippets of text that are most relevant to your query.</p>
-</li>
-<li>
-<p><strong>Augmentation:</strong> The system then takes your original question, bundles it with the relevant information it just found, and sends it all to the LLM.</p>
-</li>
-<li>
-<p><strong>Generation:</strong>  The AI now has all the context it needs to generate a high-quality, factual response grounded in reality based on real-time, upto date data.</p>
-</li>
-</ol>
-</div>
-<div class="literalblock">
-<div class="title">The RAG Workflow</div>
-<div class="content">
-<pre>+-------------------+   +--------------------+   +---------------------+
-|   Your Question   |--&gt;|  Retrieval System  |--&gt;|      Language AI    |
-| "What is Project |   | (Finds relevant    |   | (Generates answer   |
-|      Phoenix?"    |   |     documents)     |   | with new context)   |
-+-------------------+   +--------------------+   +---------------------+
-                         ^
-                         |
-+------------------------+------------------------+
-|                                                 |
-|          Your Knowledge Base (Documents)        |
-|                                                 |
-+-------------------------------------------------+</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_building_a_rag_system_the_key_ingredients"><a class="anchor" href="#_building_a_rag_system_the_key_ingredients"></a>Building a RAG System: The Key Ingredients</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Now, let&#8217;s look at how we can build a practical RAG system using Docling and some powerful, open-source tools. We&#8217;ll use a combination of four key components to create our intelligent, knowledge-enhanced AI.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/rag.png" alt="rag">
-</div>
-<div class="title">Figure 1. Our RAG Implementation Toolkit</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You can use different components for each of the items listed below. We have chosen these components based on what you will run in the hands-on lab for this section.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_docling_the_dcoument_converter"><a class="anchor" href="#_docling_the_dcoument_converter"></a>Docling: The Dcoument converter</h3>
-<div class="paragraph">
-<p>As you have learnt in previous chapters, Docling is used to convert documents containing your private knowledge base into formats that can be stored, indexed and queried. It&#8217;s the first step in creating your knowledge base.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_milvus_the_vector_database"><a class="anchor" href="#_milvus_the_vector_database"></a>Milvus: The Vector Database</h3>
-<div class="paragraph">
-<p><strong>Milvus</strong> is a special kind of database called a <strong>vector database</strong>. Instead of storing data in rows and columns like a traditional database, it stores information as mathematical representations called <strong>vectors</strong>. Once Docling has processed your documents into smaller chunks, they are converted into vectors and stored in Milvus. When you ask a question, the RAG system converts your question into a vector as well. Milvus then performs a very fast and efficient search to find the document vectors that are most similar in meaning to your question vector. This is the "retrieval" part of RAG.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_ollama_the_llm_runtime_engine"><a class="anchor" href="#_ollama_the_llm_runtime_engine"></a>ollama: The LLM runtime engine</h3>
-<div class="paragraph">
-<p><strong>ollama</strong> is a tool that allows you to run powerful large language models (LLMs) locally on your own computer. This gives you privacy and control over your data. ollama combined with the LLM handles the "generation" part of the process. Once Milvus has retrieved the relevant information, it&#8217;s handed over to the LLM running in ollama. This model then uses its reasoning abilities to craft a response based on the provided context.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_langchain_the_orchestrator"><a class="anchor" href="#_langchain_the_orchestrator"></a>LangChain: The Orchestrator</h3>
-<div class="paragraph">
-<p><strong>LangChain</strong> is a framework that acts as the glue holding the different components together. It provides a set of tools and templates to connect all the different components of your RAG system. LangChain orchestrates the entire workflow. When you ask a question, LangChain receives it, tells Milvus to find the relevant documents, passes the question and the documents to ollama, and then delivers the final answer back to you. It simplifies the process of building complex AI applications.</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Sidebar: Why do we need Embeddings and Embedding Models?</div>
-<div class="paragraph">
-<p>Embeddings are a fundamental concept in modern machine learning and artificial intelligence, addressing the challenge of how to make sense of complex, high-dimensional data like text, images, and audio.</p>
-</div>
-<div class="paragraph">
-<p><strong>The Problem with Raw Data</strong></p>
-</div>
-<div class="paragraph">
-<p>Machine learning models require numerical input to function. Traditional methods for converting categorical data, like words, into numbers often fall short. If you decide to use <strong>One Shot Encoding</strong>, which creates a large, sparse vector for each unique item. For example, in a vocabulary of 10,000 words, each word would be a 10,000-dimensional vector with a single '1' and the rest '0&#8217;s. This approach has two major drawbacks:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>High Dimensionality:</strong> It creates very large and computationally expensive data representations.</p>
-</li>
-<li>
-<p><strong>Lack of Semantic Meaning:</strong> It fails to capture any relationship between words. "Cat" and "feline" are treated as completely distinct, with no notion of their similar meaning (semantic meaning).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>The Solution: Embeddings</strong></p>
-</div>
-<div class="paragraph">
-<p>Embeddings solve these problems by representing data in a <strong>dense, lower-dimensional vector space</strong>. Instead of a sparse vector of thousands of dimensions, a word might be represented by a rich vector of, for example, 300 dimensions.</p>
-</div>
-<div class="paragraph">
-<p>The key advantage is that these vectors capture <strong>semantic relationships</strong>. In this vector space, words with similar meanings will be located close to each other. For instance, the vectors for "king" and "queen" will be closer than the vectors for "king" and "apple." This allows machine learning models to understand context and nuance.</p>
-</div>
-<div class="paragraph">
-<p><strong>The Purpose of an Embedding Model</strong></p>
-</div>
-<div class="paragraph">
-<p>An <strong>embedding model</strong> is an LLM model that is speciafically trained to create these meaningful vector representations. Its primary purpose is to learn the underlying patterns and relationships in the data and translate them into a compact, numerical vector format.</p>
-</div>
-<div class="paragraph">
-<p>In essence, the embedding model takes a high-dimensional input (like a word or an image) and outputs a lower-dimensional embedding vector that encapsulates its essential features and its relationship to other data points.</p>
-</div>
-<div class="paragraph">
-<p><strong>Why This Matters</strong></p>
-</div>
-<div class="paragraph">
-<p>By using embeddings and embedding models, we can:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Improve Model Performance:</strong> Models can generalize better because they understand the relationships between different data points.</p>
-</li>
-<li>
-<p><strong>Increase Computational Efficiency:</strong> Working with smaller, denser vectors is much faster and requires less memory.</p>
-</li>
-<li>
-<p><strong>Enable Advanced Applications:</strong> Embeddings are crucial for a wide range of AI applications, including:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Natural Language Processing (NLP):</strong> For tasks like sentiment analysis, machine translation, and text summarization.</p>
-</li>
-<li>
-<p><strong>Recommendation Systems:</strong> To understand user preferences and item similarities.</p>
-</li>
-<li>
-<p><strong>Image and Audio Recognition:</strong> To identify and compare complex patterns.</p>
-</li>
-<li>
-<p><strong>Search Engines:</strong> To find semantically relevant results, not just exact keyword matches.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_lab_data_preparation_for_rag"><a class="anchor" href="#_lab_data_preparation_for_rag"></a>Lab: Data Preparation for RAG</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>The Docling Python library must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
-</li>
-<li>
-<p>Git CLI to clone the sample data files from GitHub</p>
-</li>
-<li>
-<p>Visual Studio Code, or other editors to edit Python code</p>
-</li>
-<li>
-<p><strong>LangChain</strong> bindings for <em>Docling, Milvus</em>, and <em>ollama</em></p>
-</li>
-<li>
-<p>You will run an embedded instance of the Milvus vector database using LangChain bindings</p>
-</li>
-<li>
-<p>ollama runtime to run the inference engine (IBM Granite model)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Install ollama for your platform and start it by following the instructions at <a href="https://ollama.com/download" class="bare">https://ollama.com/download</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Numerous other utility Python libraries using <code>pip install</code> command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
-</div>
-</li>
-<li>
-<p>A <code>requirements.txt</code> file is provided in the Git repository listing all the dependencies needed for this lab. Install all the needed dependencies using <code>pip install</code>. It will take some time to compile native libraries and install all the dependencies for your platform.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>pip install -r requirements.txt</strong></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Inspect the <code>rag-chain.py</code> file in VS Code. We will use two different models in this lab. The <code>sentence-transformers/all-MiniLM-L6-v2</code> model is specifically defined to convert text into vector embeddings. You can use other models (<code>all-mpnet-base-v2</code>, <code>text-embedding-ada-002</code> etc) depending on your use case. We use IBMs <code>granite-3.3</code> model for answering queries.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-INFERENCE_MODEL="granite3.3:2b"
-...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Let us run the <code>granite-3.3</code> model and ask it some questions about Docling. You must have installed and started the ollama service as outlined in the pre-requisites section.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>ollama run granite3.3:2b</strong>
-...
-&gt;&gt;&gt; <strong>What AI models are provided by Docling?</strong>
-Docling currently offers an AI-powered document management system called Docling AI.
-This platform utilizes advanced machine learning algorithms to automate and enhance various document-related
-tasks, including:
-...
-Docling AI continually learns from user interactions
-and refines its algorithms, enhancing accuracy and efficiency over time.
-...</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The response is not exactly what we wanted. It did provide some details about Docling with some hallucinations (There is no such thing as Docling AI). We can improve the response by feeding the LLM information about Docling that is contained in a PDF document.</p>
-</div>
-</li>
-<li>
-<p>The input document <code>sample-data/docling-rpt.pdf</code> contains our private knowledge base that we will convert into embeddings and store in the Milvus vector database.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
-FILE_PATH = ["sample-data/docling-rpt.pdf"]
-...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>We also declare a number of constants at the top of the file as follows:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
-EXPORT_TYPE = ExportType.DOC_CHUNKS <i class="conum" data-value="1"></i><b>(1)</b>
-
-QUESTION = "What AI models are provided by Docling?" <i class="conum" data-value="2"></i><b>(2)</b>
-
-PROMPT = PromptTemplate.from_template(      <i class="conum" data-value="3"></i><b>(3)</b>
-    "Context information is below.\n---------------------\n{context}\n---------------------\n"
-    "Given the context information and no prior knowledge, answer the query.\n"
-    "Query: {input}\nAnswer:\n",
-)
-
-TOP_K = 3 <i class="conum" data-value="4"></i><b>(4)</b>
-MILVUS_URI = "/tmp/docstore.db" <i class="conum" data-value="5"></i><b>(5)</b>
-...</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Tell Docling to convert the input document into chunks. LangChain can directly work with doc chunks instead of Markdown</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Our input prompt (Same as what we asked ollama directly without RAG)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Providing extra context to the LLM, telling it to answer questions based on the context provided with no pre-conceptions. You can be as detailed as you want with the prompt to get better results</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The Milvus vector database returns multiple results based on similarity search. Return the top 3 results of the vector search</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>Path to the Milvus database in embedded mode. In production, you will probably run Milvus as a separate network process and you will use the Milvus client libraries to connect to it.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>We start off by converting the input PDF document into smaller chunks. Rather than use Docling&#8217;s <code>DocumentConverter</code> directly, we use the convienience wrapper methods provided by the LangChain framework, which has native Docling bindings and internally uses the Docling library classes:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
- # convert PDF to smaller chunks of text
-    loader = DoclingLoader(
-        file_path=FILE_PATH,
-        export_type=EXPORT_TYPE,
-        chunker=HybridChunker(tokenizer=EMBEDDING_MODEL), <i class="conum" data-value="1"></i><b>(1)</b>
-    )
-
-    docs = loader.load() <i class="conum" data-value="2"></i><b>(2)</b>
-...</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use the Docling <code>HybridChunker</code> with the <code>sentence-transformers/all-MiniLM-L6-v2</code> embedding model to create chunks</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Convert the input PDF document chunks into a LangChain specific list of <code>Document</code> objects that can be stored in a vector database. See <a href="https://python.langchain.com/docs/integrations/document_loaders/docling" class="bare">https://python.langchain.com/docs/integrations/document_loaders/docling</a> for more details</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>We next convert the individual chunks into vector embeddings using the specialized <code>sentence-transformers/all-MiniLM-L6-v2</code> model.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
-    # Convert chunks into Vector embeddings
-    embedding = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
-...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>We then store the embeddings into the Milvus vector database. Once again, LangChain provides us a nice wrapper to use Milvus.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
-# Store embeddings in Milvus Vector DB
-    vectorstore = Milvus.from_documents(
-        documents=docs,
-        embedding=embedding,
-        collection_name="rag_demo",
-        connection_args={"uri": MILVUS_URI},
-        drop_old=True
-    )
-...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Now that you have stored your knowledge base into the Vector database, you can now instantiate the LLM and prepare it for augmentation with the new information from the vector database.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">    # instantiate the inference model
-    llm = OllamaLLM(   <i class="conum" data-value="1"></i><b>(1)</b>
-        model=INFERENCE_MODEL
-    )
-
-    # retrieve stored docs
-    retriever = vectorstore.as_retriever(search_kwargs={"k": TOP_K}) <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use the LangChain ollama wrappers to run the IBM Granite model locally</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Fetch the top 3 results of the vector similarity search</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>It&#8217;s finally time to let LangChain work it&#8217;s magic. It sends the input prompt to the LLM and fetches the response.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">    question_answer_chain = create_stuff_documents_chain(llm, PROMPT)
-    rag_chain = create_retrieval_chain(retriever, question_answer_chain)
-    resp_dict = rag_chain.invoke({"input": QUESTION})</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>The response is a Python dictionary with results containing the textual response, plus metadata about which section in the input document was used to answer the query. The actual textual response is stored in a Python dictionary with a key named <code>answer</code>. The input question is similarly stored under a key named <code>input</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">...
-clipped_answer = clip_text(<strong>resp_dict["answer"]</strong>, threshold=500)
-print(f"Question:\n{<strong>resp_dict['input']</strong>}\n\nAnswer:\n{clipped_answer}")
-...</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-You can uncomment the <code>pprint.pprint(&#8230;&#8203;)</code> line to dump the raw response from the LLM.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Finally, metadata about the response (which input docs contained the answer, which section etc) is stored under a key named <code>context</code>. We enumerate over this object and dump the metadata in JSON format to the terminal</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">...
-    for i, doc in enumerate(<strong>resp_dict["context"]</strong>):
-        ...
-        print(f"  text: {json.dumps(clip_text(<strong>doc.page_content</strong>, threshold=350))}")
-        for key in <strong>doc.metadata</strong>:
-        ...
-...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the program. You can safely ignore any warnings and exceptions emitted. Notice the substantially improved response based on the input documents, along with metadata identifying the sources and location of the information contained in the response.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 rag-chain.py</strong></code></pre>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/rag-out.png" alt="rag out">
-</div>
-<div class="title">Figure 2. Response after RAG</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_optional_lab_experiments"><a class="anchor" href="#_optional_lab_experiments"></a>Optional Lab Experiments</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Use your own input documents instead of the Docling report. You can pass multiple input documents</p>
-</li>
-<li>
-<p>Use a different embedding model</p>
-</li>
-<li>
-<p>Use a different inference model</p>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../chunking/serialization.html">Serialization</a></span>
-  <span class="next"><a href="../dpk/index.html">Data Prep Kit (DPK)</a></span>
+  <span class="next"><a href="rag.html">RAG</a></span>
 </nav>
 </article>
   </div>
