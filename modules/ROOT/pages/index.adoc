@@ -38,6 +38,7 @@ The following courses and labs are recommended before attempting this course:
 == Acknowledgements
 
 * Karlos Knox
+* Rutuja Deshmukh
 * Rupali Talwatkar
 * Sam Zahran
 * Caitlyn Rymarchyk
