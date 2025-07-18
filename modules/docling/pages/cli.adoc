@@ -12,7 +12,7 @@ The complete list of commands and the corresponding options supported are availa
 
 ## Lab: Using the Docling CLI
 
-. If you have not already done so, clone the Git repository containing the sample documents that should be converted, to a folder of your choice. If you have completed the previous lab, then there is need to do this step.
+. If you have not already done so, clone the Git repository containing the sample documents that should be converted to a folder of your choice. If you have completed the previous lab, then there is a need to do this step.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -46,16 +46,16 @@ docling-ibm-models        3.4.4
 docling-parse             4.0.3
 --
 
-. Run the `docling` CLI command to convert a PDF. When you run the `docling` command for the first time, it will take a while to download and cache a few pre-trained models from Hugging Face model repository (These specialized models are used to identify and extract tables, images and layout information from documents). Subsequent runs will be approximately 50% faster.
+. Run the `docling` CLI command to convert a PDF. When you run the `docling` command for the first time, it will take a while to download and cache a few pre-trained models from the Hugging Face model repository (These specialized models are used to identify and extract tables, images, and layout information from documents). Subsequent runs will be approximately 50% faster.
 +
 [source,subs="verbatim,quotes"]
 --
 $ (venv) *docling --output /tmp/ sample-data/docling-rpt.pdf*
 --
 +
-The default output format is __Markdown__. The output is saved to a .md file in the location specified by the `--output` flag.
+The default output format is __Markdown__. The output is saved to an .md file in the location specified by the `--output` flag.
 
-. Verify that a file with the same name, but with a `.md` extension is created in the `/tmp` folder. You can preview the Markdown file in Visual Studio Code or some other previewer
+. Verify that a file with the same name, but with an `.md` extension is created in the `/tmp` folder. You can preview the Markdown file in Visual Studio Code or some other previewer.
 +
 image::cli-convert.png[title=PDF Converted to Markdown Preview]
 
@@ -84,7 +84,7 @@ $ (venv) *docling --to json --output /tmp/ sample-data/docling-rpt.pdf*
 ...
 --
 
-. Now, let's try and convert an MS Word document to Markdown
+. Now, let's try to convert an MS Word document to Markdown.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -95,7 +95,7 @@ image::msword-out.png[title=MS Word file to Markdown Preview]
 +
 Notice how Docling has identified the layout and table structure in the input MS Word document and correctly converted it to Markdown.
 
-. Finally, let's try and convert an MS Powerpoint document to Markdown
+. Finally, let's try to convert an MS Powerpoint document to Markdown.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -105,7 +105,7 @@ WARNING:docling.backend.mspowerpoint_backend:Warning: image cannot be loaded by 
 +
 image::ppt-converted.png[title=MS Powerpoint file to Markdown Preview]
 +
-Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not able to parse an embedded WMF file in the slides.
+Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and the content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not being able to parse an embedded WMF file in the slides.
 
 . You can also pass a URL containing a document instead of a local path to the document. For example,
 +

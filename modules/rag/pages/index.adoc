@@ -1,9 +1,9 @@
 = Retrieval Augmented Generation (RAG)
 
-In this chapter, you will learn about how Docling enables the process of Retrieval Augmented Generation (RAG) to generate up to date response from LLMs beyond the dataset thaty they have been trained on.
+In this chapter, you will learn about how Docling enables the process of Retrieval Augmented Generation (RAG) to generate up-to-date responses from LLMs beyond the dataset that they have been trained on.
 
 == Objectives
 
-* Describe the concepts, components and terminology used in RAG
+* Describe the concepts, components, and terminology used in RAG
 * Describe the concept of embeddings and embedding models
 * Learn how to use the LangChain framework to assemble a RAG pipeline

@@ -1,24 +1,24 @@
 = Parsing Documents with Images and Tables
 :navtitle: Images and Tables
 
-Once you convert an input document into the unified `DoclingDocument` object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells and textual items. 
+Once you convert an input document into the unified `DoclingDocument` object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells, and textual items. 
 
 ## Pre-requisites
 
 * The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code or other editors to edit Python code
 
 ## Lab: Exporting Tables
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -52,7 +52,7 @@ OUTPUT_DIR = "/tmp/export-tables/"
 ...
 --
 
-. On the `DoclingDocument` object, Docling provides a `tables` method that returns a list of `TableItem` objects representing all the tables in the document. We take advantage of Docling's integration with the popular `Pandas` library to export a `DataFrame` object that we can convieniently query and manipulate.
+. On the `DoclingDocument` object, Docling provides a `tables` method that returns a list of `TableItem` objects representing all the tables in the document. We take advantage of Docling's integration with the popular `Pandas` library to export a `DataFrame` object that we can conveniently query and manipulate.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -96,7 +96,7 @@ image::export-tables.png[title=Tables exported to CSV files]
 ...
 ```
 
-. Once the document is converted, we iterate over each page in the document, and take a snapshot image of each page and save it in the `/tmp/export-images` folder. Once again, Docling's native integration with the popular Python `Pillow` library provides a nice convienient abstraction for us to export the image objects to different formats.
+. Once the document is converted, we iterate over each page in the document, take a snapshot image of each page, and save it in the `/tmp/export-images` folder. Once again, Docling's native integration with the popular Python `Pillow` library provides a nice convenient abstraction for us to export the image objects to different formats.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -110,7 +110,7 @@ image::export-tables.png[title=Tables exported to CSV files]
 ...
 --
 
-. Next, we iterate over the hierarchial tree of nested objects in the `DoclingDocument` object and extract images (`PictureItem` elements) from it. We serialize each of the extracted images in the `/tmp/export-images` folder.
+. Next, we iterate over the hierarchical tree of nested objects in the `DoclingDocument` object and extract images (`PictureItem` elements) from it. We serialize each of the extracted images in the `/tmp/export-images` folder.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -124,7 +124,7 @@ for element, _level in conv_res.document.*iterate_items()*:
 ...
 --
 
-. Continue using the virtual environment from the previous lab. If you are not in the virtual environment, active it and then run the `export-images.py` file.
+. Continue using the virtual environment from the previous lab. If you are not in the virtual environment, activate it and then run the `export-images.py` file.
 +
 [source,subs="verbatim,quotes"]
 --

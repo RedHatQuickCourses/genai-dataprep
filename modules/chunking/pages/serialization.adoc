@@ -1,12 +1,12 @@
 = Serialization
 
-A document **serializer** is a Docling abstraction that is initialized with a given **DoclingDocument** and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.
+A document **serializer** is a Docling abstraction that is initialized with a given **DoclingDocument** and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON, etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.
 
 image::serial.png[title=Docling Serializers]
 
 Serializers are components responsible for converting processed document objects (like chunked documents or embedding results) into formats that can be saved, transferred, or indexed, typically for use in downstream applications like LLM pipelines, vector databases, or search systems.
 
-Docling defines abstractions for several objects in the contained within the `DoclingDocument`, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.
+Docling defines abstractions for several objects contained within the `DoclingDocument`, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.
 
 This functionality is crucial for preparing documents for use in Generative AI applications, such as Retrieval-Augmented Generation (RAG), LLM fine-tuning, and question-answering systems.
 
@@ -22,18 +22,18 @@ Docling provides out-of-the-box serializers for several popular formats, includi
 
 * The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code or other editors to edit Python code
 
 ### Steps
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -49,7 +49,7 @@ $ *source venv/bin/activate*
 +
 Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-. Inspect the `serializers.py` file in VS Code. The input document is `sample-data/ub-pldi25.pdf`. The serialized ouptut will be printed to the terminal.
+. Inspect the `serializers.py` file in VS Code. The input document is `sample-data/ub-pldi25.pdf`. The serialized output will be printed to the terminal.
 +
 ```python
 ...
@@ -57,7 +57,7 @@ INPUT_DOC = Path("sample-data/ub-pldi25.pdf")
 ...
 ```
 
-. Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serialzer with customization respectively. The last two methods are commented out initially.
+. Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serializer with customization, respectively. The last two methods are commented out initially.
 +
 ```python
 ...

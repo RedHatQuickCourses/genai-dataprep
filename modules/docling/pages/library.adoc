@@ -1,7 +1,7 @@
 # Using Docling as a Library
 :navtitle: Docling Library
 
-The Docling CLI and web UI are meant to be used for simple use-cases and for experimenting with documents. The most common way to use Docling in the real-world is as a library to build custom pipelines and integrate with other systems as part of a larger pre-training, fine-tuning or RAG workflow.
+The Docling CLI and web UI are meant to be used for simple use-cases and for experimenting with documents. The most common way to use Docling in the real-world is as a library to build custom pipelines and integrate with other systems as part of a larger pre-training, fine-tuning, or RAG workflow.
 
 This section is a brief introduction to using Docling as a Python library to programmatically perform document conversions. This is only a basic introduction. Subsequent chapters will deal extensively with Docling features like chunking, custom pipelines, and serialization.
 
@@ -9,18 +9,18 @@ This section is a brief introduction to using Docling as a Python library to pro
 
 * Docling CLI must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code, or other editors, to edit Python code
 
 ## Lab: Simple Document Conversion
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -83,4 +83,4 @@ image:code-complete.png[title=DoclingDocument object methods]
 print(doc.*export_to_text(from_element=0, to_element=10))*
 --
 
-. Run the program again, and note that output is restricted to around 10 lines from the output text.
+. Run the program again, and note that the output is restricted to around 10 lines from the output text.
