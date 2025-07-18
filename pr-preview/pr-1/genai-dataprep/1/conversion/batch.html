@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Batch Conversion :: Data Preparation for Gen AI Applications</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="multi-format.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Data Preparation for Gen AI Applications</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/genai-dataprep/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-dataprep" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Data Preparation for Gen AI Applications</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../data-prep-intro.html">Data Preparation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../docling/index.html">Docling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/arch.html">Architecture &amp; Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/install.html">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/cli.html">Docling CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/gui.html">Docling Web UI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/library.html">Docling Library</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Conversion</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="batch.html">Batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="multi-format.html">Multi-format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">Customizing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="image-describe.html">Image Captions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chunking/index.html">Chunking &amp; Serialization</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/chunking.html">Why Chunking?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/hybrid.html">Hybrid Chunking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/serialization.html">Serialization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rag/index.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag.html">RAG</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag-lab.html">Lab: Data Preparation for RAG</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference/index.html">Other Misc Material</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Data Preparation for Gen AI Applications</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Data Preparation for Gen AI Applications</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Data Preparation for Gen AI Applications</a></li>
+    <li><a href="index.html">Conversion</a></li>
+    <li><a href="batch.html">Batch</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Batch Conversion</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the previous section, you learnt how to programatically convert a single PDF file using the Docling Python library. In real-world use-cases, you will be required to convert multiple docouments at scale in batch mode.</p>
+</div>
+<div class="paragraph">
+<p>The Docling Python library provides you a convienient way to achieve this via the <code>convert_all</code> method in the <code>DocumentConverter</code> class. It takes a list of <code>Path</code> variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size, and more.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.DocumentConverter.convert_all" target="_blank" rel="noopener">the convert_all method</a> API documentation for the full parameter list.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The Docling Python library must be installed as outlined in the previous sections using <code>pip</code> in a Python virtual environment</p>
+</li>
+<li>
+<p>Git CLI to clone the sample data files from GitHub</p>
+</li>
+<li>
+<p>Visual Studio Code or other editors to edit Python code</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_batch_document_conversion"><a class="anchor" href="#_lab_batch_document_conversion"></a>Lab: Batch Document Conversion</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you have previously created a virtual environment and installed Docling, activate the venv.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
+</div>
+</li>
+<li>
+<p>Inspect the <code>batch-conversion.py</code> file in VS Code. The input documents are in the <code>sample-data/batch</code> folder. The output documents will be placed in the <code>/tmp/batch-converted</code> folder.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">INPUT_DIR = "sample-data/batch"
+OUTPUT_DIR = "/tmp/batch-converted"
+...
+def main():
+...
+  input_doc_paths: list[Path] = list(input_path.glob("*.pdf")) <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Construct <code>Path</code> objects by fetching all files with ".pdf" extension.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Docling provides sane defaults for processing PDF files using the <code>PdfPipelineOptions</code> class. You can customize the pipeline by changing various fields in this class. In our case, we set the option to generate images of each page (in memory) for further processing in the pipeline.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs"> pipeline_options = PdfPipelineOptions()
+ <strong>pipeline_options.generate_page_images = True</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The conversion magic happens using the <code>DocumentConverter</code> class. This class converts the input files into the unified <code>DoclingDocument</code> class, which can be exported to various output formats, and can also be used for further custom processing before outputting the result.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">doc_converter = DocumentConverter(
+    format_options={
+        InputFormat.PDF: PdfFormatOption(
+            <strong>pipeline_options=pipeline_options, <i class="conum" data-value="1"></i><b>(1)</b>
+            backend=DoclingParseV4DocumentBackend</strong> <i class="conum" data-value="2"></i><b>(2)</b>
+        )
+    }
+)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The pipeline options were set previously</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Docling supports multiple backends. Here we use the default <code>DoclingParseV4DocumentBackend</code>. See <a href="https://github.com/docling-project/docling/tree/main/docling/backend" class="bare">https://github.com/docling-project/docling/tree/main/docling/backend</a> for more backends</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Convert the input document using the <code>convert_all</code> method</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">conv_results = <strong>doc_converter.convert_all</strong>(
+    input_doc_paths, <i class="conum" data-value="1"></i><b>(1)</b>
+    raises_on_error=False, <i class="conum" data-value="2"></i><b>(2)</b>
+)</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The list of <code>Path</code> objects referencing the input PDF files.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set flag to <strong>NOT</strong> halt processing if there is an error during conversion. Setting this flag to <code>True</code> will halt the processing pipeline if an error occurs.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Finally, export the in-memory representation of the <code>DoclingDocument</code> object to Markdown format. Use the VS Code autocomplete suggestions to view other <code>save_as*</code> methods available on the <code>DoclingDocument</code> object.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">conv_res.document.save_as_markdown(
+    output_path / f"{out_file_name}.md",
+    image_mode=ImageRefMode.PLACEHOLDER
+)</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the program. You can safely ignore any warnings emitted.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 batch-conversion.py</strong></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once the program completes, you should see Markdown files in the <code>/tmp/batch-converted</code> folder corresponding to the input files with a <code>*.md</code> extension. Preview the markdown rendering in VS Code or a Markdown editor and verify that headings, paragraphs, and tables are converted correctly.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/batch-converted.png" alt="batch converted">
+</div>
+<div class="title">Figure 1. Batch converted Markdown files</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Conversion</a></span>
+  <span class="next"><a href="multi-format.html">Multi-format</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

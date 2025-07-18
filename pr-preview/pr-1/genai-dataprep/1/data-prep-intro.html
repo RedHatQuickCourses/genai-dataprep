@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Introduction to Data Preparation for AI Applications :: Data Preparation for Gen AI Applications</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="docling/index.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../..">Data Preparation for Gen AI Applications</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/genai-dataprep/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-dataprep" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Data Preparation for Gen AI Applications</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="data-prep-intro.html">Data Preparation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="docling/index.html">Docling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="docling/arch.html">Architecture &amp; Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="docling/install.html">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="docling/cli.html">Docling CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="docling/gui.html">Docling Web UI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="docling/library.html">Docling Library</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="conversion/index.html">Conversion</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="conversion/batch.html">Batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="conversion/multi-format.html">Multi-format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="conversion/custom.html">Customizing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="conversion/image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="conversion/image-describe.html">Image Captions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="chunking/index.html">Chunking &amp; Serialization</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chunking/chunking.html">Why Chunking?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chunking/hybrid.html">Hybrid Chunking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chunking/serialization.html">Serialization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="rag/index.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rag/rag.html">RAG</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rag/rag-lab.html">Lab: Data Preparation for RAG</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="dpk/index.html">Data Prep Kit (DPK)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dpk/dpk-lab.html">Labs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="reference/index.html">Other Misc Material</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Data Preparation for Gen AI Applications</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Data Preparation for Gen AI Applications</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Data Preparation for Gen AI Applications</a></li>
+    <li><a href="data-prep-intro.html">Data Preparation</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Introduction to Data Preparation for AI Applications</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Artificial Intelligence (AI) has made remarkable strides, powering everything from sophisticated chatbots to groundbreaking scientific research. However, the success of any AI application, particularly those involving Large Language Models (LLMs) and Generative AI (Gen AI), hinges critically on one foundational element: <strong>high-quality, well-prepared data</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Data preparation</strong> is the process of <em>cleaning</em>, <em>transforming</em>, and <em>structuring</em> raw data into a format suitable for AI models. It&#8217;s often an iterative and time-consuming process, yet it&#8217;s arguably the most crucial. AI models learn patterns and relationships from the data they are trained on. Effective data preparation ensures that models are trained on accurate, relevant, and unbiased information, leading to more reliable predictions, insightful analyses, and meaningful outputs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_challenge_of_unstructured_documents_in_ai"><a class="anchor" href="#_the_challenge_of_unstructured_documents_in_ai"></a>The Challenge of Unstructured Documents in AI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A significant portion of the world&#8217;s information, especially within companies, resides in <em>unstructured</em> documents. These include PDFs, Word documents, presentations, emails, scanned images, web pages, and more. Unlike <em>structured</em> data neatly organized in databases, unstructured documents presents some challenges for AI systems.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ai-challenges.png" alt="ai challenges">
+</div>
+<div class="title">Figure 1. Challenges with Unstructured Documents for AI Applications</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Diverse Formats:</strong> Each document type has its own internal structure and encoding, making uniform processing difficult.</p>
+</li>
+<li>
+<p><strong>Complex Layouts:</strong> Documents often feature intricate layouts with multiple columns, headers, footers, tables, figures, captions, and footnotes. Understanding the logical reading order and the relationship between these elements is non-trivial for machines.</p>
+</li>
+<li>
+<p><strong>Embedded Rich Content:</strong> Tables, charts, images, and even handwritten notes are common. Extracting and interpreting this rich content accurately is essential for correct responses to queries.</p>
+</li>
+<li>
+<p><strong>Scanned and Image-based Content:</strong> Many legacy documents exist only as scanned images, requiring <strong>Optical Character Recognition (OCR)</strong> tools to convert visual text into machine readable text, which can introduce errors.</p>
+</li>
+<li>
+<p><strong>Semantic Ambiguity:</strong> The meaning of text can be highly contextual, and the visual presentation often provides clues that are lost in simple text extraction.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Simply extracting raw text from these documents is often insufficient. AI models, especially LLMs used in applications like Retrieval Augmented Generation (RAG), need to understand not just the words but also the structure, context, and key entities within the documents to provide accurate and relevant responses.</p>
+</div>
+<div class="paragraph">
+<p>The inherent complexity of unstructured documents necessitates specialized tools designed to bridge the gap between raw documents and AI-ready data. Generic text processing libraries or manual efforts quickly become inefficient and inadequate when dealing with the volume and variety of modern document data. This is where tools like <strong>Docling</strong> are useful.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_docling"><a class="anchor" href="#_docling"></a>Docling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docling-project.github.io/docling/">Docling</a> is an open-source Python toolkit and library for parsing and extracting unstructured data from various multi-format documents. Some of the features include:</p>
+</div>
+<div class="paragraph">
+<p><strong>Multi-Format Parsing:</strong> It can ingest a wide array of document formats (PDFs, DOCX, XLSX, HTML, and more), providing a unified starting point in a data preparation workflow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Layout Analysis:</strong> Advanced PDF understanding including page layout, reading order, table structure, code, formulas, image classification, and more. Docling can accurately detect tables, parse their cellular structure, and extract tabular data in a usable format.</p>
+</div>
+<div class="paragraph">
+<p><strong>OCR Integration:</strong> For scanned documents or embedded images containing text, Docling integrates with OCR engines like <strong>Tesseract</strong> to convert visual information into text.</p>
+</div>
+<div class="paragraph">
+<p><strong>Structured Output:</strong> It converts documents into a rich, structured representation (the <strong>DoclingDocument</strong> object), which retains not only the text but also metadata about its layout, provenance, and semantic role. This structured output is far more valuable for AI than plain text.</p>
+</div>
+<div class="paragraph">
+<p><strong>Local Processing &amp; Efficiency:</strong> Docling is designed to run locally, ensuring data privacy, and is optimized for efficient processing on industry-standard hardware.</p>
+</div>
+<div class="paragraph">
+<p><strong>AI Ecosystem Integration:</strong> Tools like Docling are often designed to integrate seamlessly with popular AI frameworks like <strong>IBM Data Prep Kit</strong>, <strong>LangChain</strong> and <strong>LlamaIndex</strong>, streamlining the process of preparing data to be fed into LLM pipelines for tasks like RAG.</p>
+</div>
+<div class="paragraph">
+<p>Below is a short video that introduces Docling features and demonstrates how Docling can be used to extract data from documents as part of a RAG workflow.</p>
+</div>
+<div class="videoblock">
+<div class="title">How Docling turns documents into usable AI data</div>
+<div class="content">
+<iframe width="700" height="450" src="https://www.youtube.com/embed/BWxdLm1KqTU?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+<div class="paragraph">
+<p>In the next chapter, you will learn how to install and use Docling to extract data from documents in various formats.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references"><a class="anchor" href="#_references"></a>References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://ai.gopubby.com/docling-by-ibm-the-tool-that-claims-to-make-document-parsing-effortless-but-does-it-really-4d31fa1786bf" target="_blank" rel="noopener">Docling by IBM: The Tool that Makes Document Parsing Effortless</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Home</a></span>
+  <span class="next"><a href="docling/index.html">Docling</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

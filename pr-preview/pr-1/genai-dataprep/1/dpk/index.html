@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IBM Data Prep Kit :: Data Preparation for Gen AI Applications</title>
+    <link rel="prev" href="../rag/rag-lab.html">
+    <link rel="next" href="dpk-lab.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Data Preparation for Gen AI Applications</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/genai-dataprep/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-dataprep" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Data Preparation for Gen AI Applications</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../data-prep-intro.html">Data Preparation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../docling/index.html">Docling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/arch.html">Architecture &amp; Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/install.html">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/cli.html">Docling CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/gui.html">Docling Web UI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../docling/library.html">Docling Library</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../conversion/index.html">Conversion</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/batch.html">Batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/multi-format.html">Multi-format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/custom.html">Customizing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-describe.html">Image Captions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chunking/index.html">Chunking &amp; Serialization</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/chunking.html">Why Chunking?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/hybrid.html">Hybrid Chunking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/serialization.html">Serialization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rag/index.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag.html">RAG</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag-lab.html">Lab: Data Preparation for RAG</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Data Prep Kit (DPK)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dpk-lab.html">Labs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference/index.html">Other Misc Material</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Data Preparation for Gen AI Applications</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Data Preparation for Gen AI Applications</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Data Preparation for Gen AI Applications</a></li>
+    <li><a href="index.html">Data Prep Kit (DPK)</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">IBM Data Prep Kit</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/data-prep-kit/data-prep-kit">Data Prep Kit</a> (DPK), an open source project created by IBM, is designed to help developers and scientists prepare data for use in artificial intelligence (AI) projects. Think of it as a toolkit for cleaning up large amounts of text before you feed it to an AI for training.</p>
+</div>
+<div class="paragraph">
+<p>The DPK was used to train data for IBM&#8217;s foundational models called the <strong>Granite</strong> family of LLMs. The DPK is a set of tools and libraries that help solve the messy data problem by automating the cleaning process. Instead of having a person manually sift through everything, this toolkit provides tools to do the job quickly and consistently. It&#8217;s built to handle the huge volumes of text needed to train modern AI models.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The DPK uses Docling to parse and extract data from documents in different formats. DPK is a super-set of the functionality available in Docling in that is useful in more contexts and scenarios like pre-training, model fine-tuning and RAG.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_features"><a class="anchor" href="#_features"></a>Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Data Prep Kit boasts a rich set of features that cater to the diverse needs of AI developers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>A Rich Library of Transformers:</strong> The kit includes a wide array of pre-built "transformers" that perform specific data manipulation tasks. These include functions for data ingestion from various formats, deduplication to remove redundant information, quality filtering to eliminate low-quality content, and personally identifiable information (PII) detection and redaction to ensure data privacy. The full list of in-built transformers is available at <a href="https://data-prep-kit.github.io/data-prep-kit" class="bare">https://data-prep-kit.github.io/data-prep-kit</a>. A few more details are also provided at <a href="https://developer.ibm.com/articles/dpk-prebuilt-transforms" class="bare">https://developer.ibm.com/articles/dpk-prebuilt-transforms</a>.</p>
+</li>
+<li>
+<p><strong>Scalability and Flexibility</strong>: A core design principle of the Data Prep Kit is its ability to scale seamlessly from a local developer&#8217;s laptop to large, distributed computing environments. It leverages popular open-source frameworks like <strong>Ray</strong> and <strong>Apache Spark</strong> to handle massive datasets efficiently. This scalability ensures that the toolkit can support projects of any size, from small-scale experimentation to enterprise-level model training.</p>
+</li>
+<li>
+<p><strong>Extensibility and Customization:</strong> Recognizing that every AI project has unique data requirements, the Data Prep Kit is highly extensible. Developers can easily create their own custom transformers to address specific data cleaning and preprocessing needs that are not covered by the pre-built modules.</p>
+</li>
+<li>
+<p><strong>Support for Multiple Runtimes:</strong> The toolkit is designed to be runtime-agnostic, offering support for Python, Ray, and Apache Spark. This flexibility allows developers to integrate the Data Prep Kit into their existing workflows and leverage their preferred computing environments.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Focus on Generative AI Use Cases:</strong> The features and transformers within the kit are specifically tailored for common generative AI tasks, including pre-training, fine-tuning, and retrieval-augmented generation (RAG).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture"><a class="anchor" href="#_architecture"></a>Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The architecture of the IBM Data Prep Kit is modular and built for scalability and ease of use. It revolves around a central concept of a <strong>"data processing pipeline"</strong>, where a series of <strong>transformers</strong> are applied sequentially to the raw data.</p>
+</div>
+<div class="paragraph">
+<p>The core components of the architecture include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Data Ingestion:</strong> The initial stage involves reading data from various sources and formats and converting it into a standardized format, typically Apache Parquet, for efficient processing.</p>
+</li>
+<li>
+<p><strong>Transformer Library:</strong> This is the heart of the toolkit, containing the collection of pre-built and custom modules for data cleaning, transformation, and enrichment.</p>
+</li>
+<li>
+<p><strong>Runtime Abstraction:</strong> The kit abstracts the underlying execution engine (Python, Ray, or Spark), allowing developers to write their data preparation logic once and run it across different environments without significant code changes.</p>
+</li>
+<li>
+<p><strong>Pipeline Orchestration:</strong> The framework enables the chaining of multiple transformers together to create a complete data preparation workflow. This allows for a clear and organized approach to complex data preprocessing tasks.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references"><a class="anchor" href="#_references"></a>References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.ibm.com/components/data-prep-kit/" target="_blank" rel="noopener">Data Prep Kit (DPK): Data preparation for LLM application developers</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../rag/rag-lab.html">Lab: Data Preparation for RAG</a></span>
+  <span class="next"><a href="dpk-lab.html">Labs</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

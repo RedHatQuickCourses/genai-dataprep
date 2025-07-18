@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Docling Architecture :: Data Preparation for Gen AI Applications</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="install.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Data Preparation for Gen AI Applications</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/genai-dataprep/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="genai-dataprep" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Data Preparation for Gen AI Applications</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../data-prep-intro.html">Data Preparation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Docling</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="arch.html">Architecture &amp; Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="install.html">Install</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="cli.html">Docling CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="gui.html">Docling Web UI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="library.html">Docling Library</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../conversion/index.html">Conversion</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/batch.html">Batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/multi-format.html">Multi-format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/custom.html">Customizing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-table.html">Images and Tables</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../conversion/image-describe.html">Image Captions</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chunking/index.html">Chunking &amp; Serialization</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/chunking.html">Why Chunking?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/hybrid.html">Hybrid Chunking</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chunking/serialization.html">Serialization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../rag/index.html">Retrieval Augmented Generation (RAG)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag.html">RAG</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../rag/rag-lab.html">Lab: Data Preparation for RAG</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../dpk/index.html">Data Prep Kit (DPK)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dpk/dpk-lab.html">Labs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../reference/index.html">Other Misc Material</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Data Preparation for Gen AI Applications</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Data Preparation for Gen AI Applications</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Data Preparation for Gen AI Applications</a></li>
+    <li><a href="index.html">Docling</a></li>
+    <li><a href="arch.html">Architecture &amp; Concepts</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Docling Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Docling&#8217;s high-level architecture is illustrated below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/docling_arch.png" alt="docling arch">
+</div>
+<div class="title">Figure 1. Docling Architecture</div>
+</div>
+<div class="paragraph">
+<p>Docling has a plugin-based architecture for parsing documents (called <strong>converters</strong>) of various formats and extracting text from them. Converters for PDF and MS Office format documents (docx, pptx, xlsx) are provided by default, which can further be customized using Python code. You can also write your own document converter that extends the base classes provided by Docling to support other formats.</p>
+</div>
+<div class="paragraph">
+<p>Documents of different formats are parsed into memory as a standard Python object called <strong>DoclingDocument</strong>, that represents a format-neutral representation of the structure of the document (text, headings, sections, lists, tables, images, etc.). This in-memory representation can then be exported into various output formats (Markdown, JSON, etc.).</p>
+</div>
+<div class="paragraph">
+<p>You can process the document through a series of converters and do post-processing steps in a <strong>pipeline</strong> to produce the required output suitable for ingestion into an LLM for RAG, or to fine-tune an existing model, or build a foundation model from scratch.</p>
+</div>
+<div class="paragraph">
+<p>The next section briefly discusses some terminology and concepts specific to Docling that will be used throughout this course.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concepts_and_terminology"><a class="anchor" href="#_concepts_and_terminology"></a>Concepts and Terminology</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_processing_pipeline"><a class="anchor" href="#_processing_pipeline"></a>Processing pipeline</h3>
+<div class="imageblock">
+<div class="content">
+<img src="_images/docling-pipeline.png" alt="docling pipeline">
+</div>
+<div class="title">Figure 2. Docling Processing Pipeline</div>
+</div>
+<div class="paragraph">
+<p>Docling implements a linear <em>pipeline of operations</em>, which execute sequentially on each given document. Each document is first parsed by its respective converter, which retrieves the text tokens, consisting of string content and its coordinates on the page, to support downstream operations. Then, the standard model pipeline applies a sequence of AI models independently on every page in the document to extract features and content, such as layout and table structures.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the results from all pages are aggregated and passed through a post-processing stage, which augments metadata, detects the document language, infers reading order, and eventually assembles a typed document object (<strong>DoclingDocument</strong>) which can be serialized to JSON or Markdown.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_document_parsers"><a class="anchor" href="#_document_parsers"></a>Document Parsers</h3>
+<div class="paragraph">
+<p>Docling provides a number of default parsers (called <em>backends</em>) for documents of different formats. The backends can detect and extract the text and structure from documents for further processing downstream.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_doclingdocument"><a class="anchor" href="#_doclingdocument"></a>DoclingDocument</h3>
+<div class="imageblock">
+<div class="content">
+<img src="_images/docling-new-pipeline.png" alt="docling new pipeline">
+</div>
+<div class="title">Figure 3. Pipelines build up a DoclingDocument object which can be further processed downstream</div>
+</div>
+<div class="paragraph">
+<p>With Docling v2, a unified in-memory document representation called <strong>DoclingDocument</strong> was introduced. It is defined as a <a href="https://docs.pydantic.dev/latest">Pydantic</a> datatype, which can express several features common to documents, such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Text, Tables, Pictures, and more</p>
+</li>
+<li>
+<p>Document hierarchy with sections and groups</p>
+</li>
+<li>
+<p>Disambiguation between the main body text, headers, and footers</p>
+</li>
+<li>
+<p>Layout information (i.e., bounding boxes) for all items, if available</p>
+</li>
+<li>
+<p>Provenance information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It also provides a set of document construction fluent APIs to build up a <strong>DoclingDocument</strong> from programmatically in code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_serialization"><a class="anchor" href="#_serialization"></a>Serialization</h3>
+<div class="paragraph">
+<p>A <strong>serializer</strong> is a function that takes the complex, in-memory <strong>DoclingDocument</strong> object and converts (<em>serializes</em>) it into a different, more standard format like JSON or Markdown for storage, transmission, and use in other applications downstream. Docling supports many in-built serializers, and you can write a custom serializer by extending the base classes provided by the Docling library.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_chunking"><a class="anchor" href="#_chunking"></a>Chunking</h3>
+<div class="paragraph">
+<p>A <strong>chunker</strong> is a Docling abstraction that splits a <strong>DoclingDocument</strong> object and returns a <em>stream of chunks</em>, each of which captures some part of the document as a string accompanied by respective metadata.</p>
+</div>
+<div class="paragraph">
+<p>To enable both flexibility for downstream applications and out-of-the-box utility, Docling defines a chunker class hierarchy, providing a base type, <strong>BaseChunker</strong>, as well as specific subclasses.</p>
+</div>
+<div class="paragraph">
+<p>Docling integration with Gen AI frameworks like LlamaIndex is done using the <strong>BaseChunker</strong> interface, so users can easily plug in any built-in, self-defined, or third-party  implementations.</p>
+</div>
+<div class="paragraph">
+<p>Starting from a <strong>DoclingDocument</strong>, there are two possible chunking approaches:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exporting the <strong>DoclingDocument</strong> to Markdown (or a similar format) and then performing user-defined chunking as a post-processing step</p>
+</li>
+<li>
+<p>Using native Docling chunkers, that is, operating directly on the <strong>DoclingDocument</strong> to produce chunks</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plugins"><a class="anchor" href="#_plugins"></a>Plugins</h3>
+<div class="paragraph">
+<p>The Docling toolkit and library are built in a modular manner, where you can extend the functionality of each stage of the pipeline using plugins. For example, you can use different types of Optical Character Recognition (OCR) libraries in the processing pipeline depending on the complexity of your PDFs containing scanned images.</p>
+</div>
+<div class="paragraph">
+<p>Almost all components (backends, serializers, chunkers) come with defaults and can be extended and customized in code.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Docling</a></span>
+  <span class="next"><a href="install.html">Install</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
