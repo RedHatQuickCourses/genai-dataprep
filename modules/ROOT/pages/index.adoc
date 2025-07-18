@@ -14,7 +14,7 @@ This course equips students with the knowledge and practical skills to use **Doc
 On completing this course, you should be able to:
 
 * Understand the challenges of unstructured document data and the role of Docling in addressing them.
-* Install, configure, and use Docling via its Python API, web UI and command line interface (CLI).
+* Install, configure, and use Docling via its Python API, web UI, and command line interface (CLI).
 * Learn about conversion of various document formats (PDF, DOCX, HTML) into Docling's structured **DoclingDocument** format.
 * Effectively navigate and utilize the **DoclingDocument** object to access text, layout, and metadata.
 * Implement document chunking strategies using Docling to prepare data for LLMs.

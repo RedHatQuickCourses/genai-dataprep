@@ -40,18 +40,18 @@ for ext in allowed_extensions:
 
 * The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code or other editors to edit Python code
 
 ## Lab: Convert Multi-format Documents
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -125,6 +125,6 @@ for conv_res in conv_results:
 $ (venv) *python3 multi-format.py*
 --
 
-. Once the program completes, you should see Markdown files in the `/tmp/multi-converted` folder corresponding to the input files with a `*.json` extension. Preview the converted JSON files in VS Code, and verify that the documents are converted correctly. Hierarchial elements (headings, tables, paragraphs) in the input are converted to corresponding nested JSON objects in the output.
+. Once the program completes, you should see Markdown files in the `/tmp/multi-converted` folder corresponding to the input files with a `*.json` extension. Preview the converted JSON files in VS Code, and verify that the documents are converted correctly. Hierarchical elements (headings, tables, paragraphs) in the input are converted to corresponding nested JSON objects in the output.
 +
 image::multi-converted.png[title=Multiple formats converted to JSON files]

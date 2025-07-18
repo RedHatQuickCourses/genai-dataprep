@@ -6,7 +6,7 @@ In this lab, you will use Docling to convert input documents and augment the res
 
 * The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code or other editors to edit Python code
 * *LangChain* bindings for __Docling, Milvus__, and __ollama__
 * You will run an embedded instance of the Milvus vector database using LangChain bindings
 * ollama runtime to run the inference engine (IBM Granite model)
@@ -15,7 +15,7 @@ In this lab, you will use Docling to convert input documents and augment the res
 
 ## Steps
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -45,7 +45,7 @@ Your prompt should change to indicate that you are now running in an isolated vi
 $ (venv) *pip install -r requirements.txt*
 --
 
-. Inspect the `rag-chain.py` file in VS Code. We will use two different models in this lab. The `sentence-transformers/all-MiniLM-L6-v2` model is specifically defined to convert text into vector embeddings. You can use other models (`all-mpnet-base-v2`, `text-embedding-ada-002` etc) depending on your use case. We use IBMs `granite-3.3` model for answering queries.
+. Inspect the `rag-chain.py` file in VS Code. We will use two different models in this lab. The `sentence-transformers/all-MiniLM-L6-v2` model is specifically defined to convert text into vector embeddings. You can use other models (`all-mpnet-base-v2`, `text-embedding-ada-002`, etc) depending on your use case. We use IBM's `granite-3.3` model for answering queries.
 +
 ```python
 ...
@@ -62,8 +62,7 @@ $ *ollama run granite3.3:2b*
 ...
 >>> *What AI models are provided by Docling?*
 Docling currently offers an AI-powered document management system called Docling AI. 
-This platform utilizes advanced machine learning algorithms to automate and enhance various document-related
-tasks, including:
+This platform utilizes advanced machine learning algorithms to automate and enhance various document-related tasks, including:
 ...
 Docling AI continually learns from user interactions
 and refines its algorithms, enhancing accuracy and efficiency over time.

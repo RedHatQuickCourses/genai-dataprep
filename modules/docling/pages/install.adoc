@@ -5,15 +5,15 @@ You can install and use Docling in multiple ways. This section lists the various
 
 ## Pre-requisites
 
-* macOS, Linux or WSL based Windows environments
+* macOS, Linux, or, WSL-based Windows environments
 * Python version 3.10-3.12. The code examples in this course were tested with Python 3.12 on macOS ARM.
-* It is recommended to use a tool like **brew** on macOS, **pyenv** or **uv** on other operating systems to install and manage Python versions.
+* It is recommended to use a tool like **brew** on macOS, **pyenv**, or **uv** on other operating systems to install and manage Python versions.
 * **Podman** (recommended) or **Docker** if you want to run Docling as a container. This course uses **Podman**.
-* Git CLI to clone the sample data files from GitHub
+* Git CLI to clone the sample data files from GitHub.
 
 ## Lab: CLI Install
 
-. Verify that you have Python 3.10, or higher installed on your system
+. Verify that you have Python 3.10 or higher installed on your system.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -21,35 +21,35 @@ $ *python3 -V*
 Python 3.12.11
 --
 
-. During the course, you will work with a set of input documents that will be converted to various output formats. Clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. During the course, you will work with a set of input documents that will be converted to various output formats. Clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *cd genai-apps/dataprep*
 --
 
-. Throughout the course, you will run code in an isolated virtual environment. Create a virtual environment (venv) for this course
+. Throughout the course, you will run code in an isolated virtual environment. Create a virtual environment (venv) for this course.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *python3 -m venv venv*
 --
 
-. Activate the virtual environment
+. Activate the virtual environment.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *source venv/bin/activate*
 --
 +
-Your prompt should change to indicate that you are now running in an isolated virtual environment
+Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
 . Install Docling in the virtual environment using the `pip3` command
 +
@@ -67,7 +67,7 @@ docling-parse-4.0.3 easyocr-1.7.2
 ...
 --
 
-. Verify that the `docling` CLI is installed and verify the version
+. Verify that the `docling` CLI is installed and verify the version.
 +
 [source,subs="verbatim,quotes"]
 --

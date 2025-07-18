@@ -1,9 +1,9 @@
 = Customizing Conversion Pipeline
 :navtitle: Customizing
 
-Docling provides sane defaults for converting many different type of documents. Many documents that you want to convert for LLM training or RAG will convert to a suitable format of your choice without too much customization. However, in some cases, you may wish to customize the Docling processing pipeline for conversion by using the Python library.
+Docling provides sane defaults for converting many different types of documents. Many documents that you want to convert for LLM training or RAG can be converted to a suitable format of your choice without requiring too much customization. However, in some cases, you may wish to customize the Docling processing pipeline for conversion by using the Python library.
 
-Common use-cases include using a different Optical Character Recognition (OCR) tool/library to convert a scanned PDF document, extract certain sections from documents while discrading the rest, automatic image captioning, image and table extraction, and many more options to programatically navigate the structure of the document hierarchy during the conversion process.
+Common use-cases include using a different Optical Character Recognition (OCR) tool/library to convert a scanned PDF document, extract certain sections from documents while discarding the rest, automatic image captioning, image and table extraction, and many more options to programatically navigate the structure of the document hierarchy during the conversion process.
 
 Docling allows you to do this by customizing the pipeline options classes provided by Docling. See https://docling-project.github.io/docling/reference/pipeline_options/[Pipeline Options^] for more details.
 
@@ -11,19 +11,19 @@ Docling allows you to do this by customizing the pipeline options classes provid
 
 * The Docling Python library must be installed as outlined in the previous sections using `pip` in a Python virtual environment
 * Git CLI to clone the sample data files from GitHub
-* Visual Studio Code, or other editors to edit Python code
+* Visual Studio Code or other editors to edit Python code
 * You will need to install the Tesseract OCR CLI and libraries
 
 ## Lab: Customizing the Docling Conversion Pipeline
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -61,7 +61,7 @@ INPUT_FILE = "sample-data/custom/doclaynet-paper.pdf"
 OUTPUT_DIR = "/tmp/custom-converted"
 ```
 
-. Scroll all the way to the bottom of the file. This file contains three methods demonstrating a default pipeline run, and pipeline customizations. The customization methods are commented out initially.
+. Scroll all the way to the bottom of the file. This file contains three methods demonstrating a default pipeline run and pipeline customizations. The customization methods are commented out initially.
 +
 ```python
 ...
@@ -98,7 +98,7 @@ $ (venv) *python3 custom-conversion.py*
 
 . Once the program completes, you should see the output Markdown file in the `/tmp/custom-converted` folder.
 
-. Next, inspect the `convert_pypdfium_backend()` method. Note the customization by setting various `pipeline_options` flags. Also note that we are using a different PDF conversion backend (`PyPdfium`) instead of the default PDF backend in Docling by taking advantage of Docling's pluggable architecture.
+. Next, inspect the `convert_pypdfium_backend()` method. Note the customization by setting various `pipeline_options` flags. Also, note that we are using a different PDF conversion backend (`PyPdfium`) instead of the default PDF backend in Docling by taking advantage of Docling's pluggable architecture.
 +
 [source,subs="verbatim,quotes"]
 --

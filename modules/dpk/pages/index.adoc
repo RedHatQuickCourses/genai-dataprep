@@ -1,11 +1,11 @@
 # IBM Data Prep Kit
 :navtitle: Data Prep Kit (DPK)
 
-https://github.com/data-prep-kit/data-prep-kit[Data Prep Kit] (DPK), an open source project created by IBM is designed to help developers and scientists prepare data for use in artificial intelligence (AI) projects. Think of it as a toolkit for cleaning up large amounts of text before you feed it to an AI for training.
+https://github.com/data-prep-kit/data-prep-kit[Data Prep Kit] (DPK), an open source project created by IBM, is designed to help developers and scientists prepare data for use in artificial intelligence (AI) projects. Think of it as a toolkit for cleaning up large amounts of text before you feed it to an AI for training.
 
-The DPK was used to train data for IBM's foundationl models called the **Granite** family of LLMs.  The DPK is a set of tools and libraries that helps solve the messy data problem by automating the cleaning process. Instead of having a person manually sift through everything, this toolkit provides tools to do the job quickly and consistently. It's built to handle the huge volumes of text needed to train modern AI models.
+The DPK was used to train data for IBM's foundational models called the **Granite** family of LLMs. The DPK is a set of tools and libraries that help solve the messy data problem by automating the cleaning process. Instead of having a person manually sift through everything, this toolkit provides tools to do the job quickly and consistently. It's built to handle the huge volumes of text needed to train modern AI models.
 
-NOTE: The DPK uses Docling to parse and extract data from documents in different formats. DPK is a super-set of the functionality available in Docling in that, it is useful in more contexts and scenarios like pre-training, model fine tuning and RAG.
+NOTE: The DPK uses Docling to parse and extract data from documents in different formats. DPK is a super-set of the functionality available in Docling in that is useful in more contexts and scenarios like pre-training, model fine-tuning and RAG.
 
 ## Features
 

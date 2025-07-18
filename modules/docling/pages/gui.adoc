@@ -1,10 +1,10 @@
 # Docling Web UI
 
-The https://github.com/docling-project/docling-serve[docling-serve] project provides an easy to use web-based UI to experiment and prototype document conversion using Docling.
+The https://github.com/docling-project/docling-serve[docling-serve] project provides an easy-to-use web-based UI to experiment and prototype document conversion using Docling.
 
-The most convienient way to run it is as a container. 
+The most convenient way to run it is as a container. 
 
-WARNING: Do not expose the web UI to the internet, or external use unless you know what you are doing. Ideally, you must provision a reverse proxy, load balancer or an API gateway in front of docling-serve for security reasons. It is mainly meant to be used to test, experiment and prototype document parsing and conversion.
+WARNING: Do not expose the web UI to the internet or external use unless you know what you are doing. Ideally, you must provision a reverse proxy, load balancer, or an API gateway in front of docling-serve for security reasons. It is mainly meant to be used to test, experiment, and prototype document parsing and conversion.
 
 ## Pre-requisites
 
@@ -40,13 +40,13 @@ INFO:     Uvicorn running on http://0.0.0.0:5001 (Press CTRL+C to quit)
 +
 image::web-ui.png[title=Docling serve web UI]
 
-. The web UI provides two tabs, for a URL containing an input document (`Convert URL`), and another for local files that can be uploaded from the system (`Convert File`). Enter `https://arxiv.org/pdf/2408.09869` in the `URL Input Source` field. In the `Options` section, select the `Markdown` option and unselect `JSON`. Leave all other fields at the default values.
+. The web UI provides two tabs for a URL containing an input document (`Convert URL`) and another for local files that can be uploaded from the system (`Convert File`). Enter `https://arxiv.org/pdf/2408.09869` in the `URL Input Source` field. In the `Options` section, select the `Markdown` option and unselect `JSON`. Leave all other fields at the default values.
 
 . Click `Process URL` to convert the document. Click the `Markdown` tab in the output section.
 +
 image::webui-converted.png[title=Markdown output in web UI]
 
-. You can click the `Markdown-Rendered` tab in the output section to preview how the Markdown is rendered
+. You can click the `Markdown-Rendered` tab in the output section to preview how the Markdown is rendered.
 +
 image::md-preview.png[title=Markdown output preview in web UI]
 

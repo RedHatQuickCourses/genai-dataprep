@@ -3,9 +3,9 @@
 
 Docling supports integration with Vision Language Models (VLM) to analyze images and captions embedded in a document. Building on top of Docling's pluggable architecture, you can use different VLMs to process your documents depending on the complexity and speed required for your conversion process.
 
-You can provide the details of the VLM you want to use and extra options for customizing the pipeline to the `pipeline_options` flag like you have done in previous sections.
+You can provide the details of the VLM you want to use and extra options for customizing the pipeline to the `pipeline_options` flag, like you have done in previous sections.
 
-The https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct[SmolVLM-256M^] vision language model provides a simple multimodal model that accepts arbitrary sequences of image and text inputs to produce text outputs.This compact model can be run locally on your system.
+The https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct[SmolVLM-256M^] vision language model provides a simple multimodal model that accepts arbitrary sequences of image and text inputs to produce text outputs. This compact model can be run locally on your system.
 
 You can also use the more refined and bigger https://huggingface.co/ibm-granite/granite-vision-3.1-2b-preview[ibm-granite/granite-vision-3.1-2b-preview^] model from IBM for more complex use-cases.
 
@@ -13,14 +13,14 @@ See https://github.com/docling-project/docling/blob/bdfee4e2d029fc75c717f0cc5883
 
 ## Lab: Image Captions with SmolVLM
 
-. If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.
+. If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.
 +
 [source,subs="verbatim,quotes"]
 --
 $ *git clone https://github.com/RedHatQuickCourses/genai-apps.git*
 --
 
-. All the sample input files and code is in a folder called `dataprep`. Change to this folder in the terminal.
+. All the sample input files and code are in a folder called `dataprep`. Change to this folder in the terminal.
 +
 [source,subs="verbatim,quotes"]
 --
@@ -36,7 +36,7 @@ $ *source venv/bin/activate*
 +
 Your prompt should change to indicate that you are now running in an isolated virtual environment.
 
-. Inspect the `image-describe.py` file in VS Code. The input document is in the `sample-data` folder. The image caotions output will be placed in the `/tmp/image-describe.html` file.
+. Inspect the `image-describe.py` file in VS Code. The input document is in the `sample-data` folder. The image captions output will be placed in the `/tmp/image-describe.html` file.
 +
 ```python
 INPUT_DOC = "sample-data/docling-paper.pdf"
@@ -54,7 +54,7 @@ from docling.datamodel.pipeline_options import smolvlm_picture_description <1>
         smolvlm_picture_description <2>
     )
     pipeline_options.picture_description_options.prompt = (
-        "Describe the image in three sentences. Be consise and accurate." <3>
+        "Describe the image in three sentences. Be concise and accurate." <3>
     )
     pipeline_options.images_scale = 2.0
     pipeline_options.generate_picture_images = True
@@ -63,7 +63,7 @@ from docling.datamodel.pipeline_options import smolvlm_picture_description <1>
 <2> The model to be used for analyzing images. Here we import the `smolvlm_picture_description` module since Docling has native integration with it.
 <3> The prompt for the VLM
 
-. After the input document is converted into a `DoclingDocument` object, you can iterate the object tree and extract the images. In this case, we are extracting the first five pictures in the document. We extract the caption text from the image.
+. After the input document is converted into a `DoclingDocument` object, you can iterate through the object tree and extract the images. In this case, we are extracting the first five pictures in the document. We extract the caption text from the image.
 +
 ```python
 ...
@@ -76,7 +76,7 @@ for pic in doc.pictures[:5]:
 ...
 ```
 
-. Next, we ask the VLM model to analyze the image and annotate it textually. Finally we write both the captions and the picture annotation text to an HTML file in the `/tmp/image-describe.html` file.
+. Next, we ask the VLM model to analyze the image and annotate it textually. Finally, we write both the captions and the picture annotation text to an HTML file in the `/tmp/image-describe.html` file.
 +
 ```python
 ...
@@ -126,7 +126,7 @@ pipeline_options = PdfPipelineOptions()
 pipeline_options.do_picture_description = True
 pipeline_options.picture_description_options = PictureDescriptionVlmOptions(
     repo_id="",  # <-- add HF model ID here
-    prompt="Describe the image in three sentences. Be consise and accurate.",
+    prompt="Describe the image in three sentences. Be concise and accurate.",
 )
 pipeline_options.images_scale = 2.0
 pipeline_options.generate_picture_images = True
