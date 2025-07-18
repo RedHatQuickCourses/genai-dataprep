@@ -199,7 +199,7 @@
 <p>Large Language Models can process and understand vast amounts of text. However, they are constrained by the amount of text they can process in a single prompt (this limit is called a <strong>Context Window</strong>). LLMs work with <em>tokens</em>. A <strong>token</strong> is the smallest unit of text a model can understand, roughly equivalent to a <em>word or a part of a word</em>.</p>
 </div>
 <div class="paragraph">
-<p>To overcome this limitation, and to optimize computational and memory resources, it is necessary to break down large documents into smaller, manageable pieces for effective processing, retrieval, and generation of coherent and relevant text.</p>
+<p>To overcome this limitation and to optimize computational and memory resources, it is necessary to break down large documents into smaller, manageable pieces for effective processing, retrieval, and generation of coherent and relevant text.</p>
 </div>
 <div class="paragraph">
 <p>This process is known as <strong>Chunking</strong>. Chunking is the process of partitioning a large body of text into smaller segments, or "<strong>chunks</strong>."</p>
@@ -213,7 +213,7 @@
 <p><strong>Effective use of Context Windows</strong>: Chunking ensures that portions of the text can be fed to the model sequentially or in a targeted manner, allowing it to process documents of any length without losing crucial <em>semantic</em> information. There are specialized LLM models available that can chunk a large text based on the semantic meaning of the text. Several algorithms exist to control the chunking process to make maximal use of the context window size.</p>
 </li>
 <li>
-<p><strong>Retrieval-Augmented Generation (RAG)</strong>: For tasks that require drawing information from a knowledge base, such as answering questions about a specific set of documents, chunking is a powerful technique that is an important part of a process called <strong>Retrieval-Augmented Generation (RAG)</strong>. In a RAG system, a large amount of text is first chunked, and then each chunk is converted into a numerical representation (an <em>embedding</em>). When a user queries the system, the system retrieves the most relevant chunks from the knowledge base and provides them to the LLM as <em>context</em>. This allows the model to generate a response that is not only relevant, but also improves accuracy. Without chunking, searching for relevant information within a massive, unstructured document would be computationally expensive and highly inefficient.</p>
+<p><strong>Retrieval-Augmented Generation (RAG)</strong>: For tasks that require drawing information from a knowledge base, such as answering questions about a specific set of documents, chunking is a powerful technique that is an important part of a process called <strong>Retrieval-Augmented Generation (RAG)</strong>. In a RAG system, a large amount of text is first chunked, and then each chunk is converted into a numerical representation (an <em>embedding</em>). When a user queries the system, the system retrieves the most relevant chunks from the knowledge base and provides them to the LLM as <em>context</em>. This allows the model to generate a response that is not only relevant but also improves accuracy. Without chunking, searching for relevant information within a massive, unstructured document would be computationally expensive and highly inefficient.</p>
 </li>
 <li>
 <p><strong>Optimizing Computational and Memory Resources</strong>: Processing vast amounts of text is computationally intensive and demands significant memory. By breaking down a large document into smaller chunks, the computational load is distributed. Instead of processing an entire document in one go, the model can work on smaller, more manageable sections, leading to faster processing times and reduced memory consumption.</p>
@@ -234,16 +234,16 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Fixed-Size Chunking</strong>: The simplest method, where the text is divided into chunks of a <em>fixed</em> size. While easy to implement, it can sometimes splits sentences in a manner that disrupts the semantic meaning of the text.</p>
+<p><strong>Fixed-Size Chunking</strong>: The simplest method, where the text is divided into chunks of a <em>fixed</em> size. While easy to implement, it can sometimes split sentences in a manner that disrupts the semantic meaning of the text.</p>
 </li>
 <li>
-<p><strong>Recursive/Hierarchial Chunking</strong>: A more sophisticated approach that attempts to maintain <em>semantic integrity</em> by splitting the text based on a hierarchy of separators, such as paragraphs, sentences, and words.</p>
+<p><strong>Recursive/Hierarchical Chunking</strong>: A more sophisticated approach that attempts to maintain <em>semantic integrity</em> by splitting the text based on a hierarchy of separators, such as paragraphs, sentences, and words.</p>
 </li>
 <li>
 <p><strong>Semantic Chunking</strong>: This advanced technique uses the meaning of the text to guide the splitting process. It aims to create chunks that are semantically cohesive, ensuring that each chunk represents a distinct topic or concept.</p>
 </li>
 <li>
-<p><strong>Custom Chunking</strong>: For structured documents like PDFs or program code, the chunking can be guided by the document&#8217;s inherent structure, such as splitting by sections, headings, paragraphs, or, in the case of code, by classes, modules or functions.</p>
+<p><strong>Custom Chunking</strong>: For structured documents like PDFs or program code, the chunking can be guided by the document&#8217;s inherent structure, such as splitting by sections, headings, paragraphs, or, in the case of code, by classes, modules, or functions.</p>
 </li>
 </ul>
 </div>

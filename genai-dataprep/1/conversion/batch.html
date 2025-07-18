@@ -198,7 +198,7 @@
 <p>In the previous section, you learnt how to programatically convert a single PDF file using the Docling Python library. In real-world use-cases, you will be required to convert multiple docouments at scale in batch mode.</p>
 </div>
 <div class="paragraph">
-<p>The Docling Python library provides you a convienient way to achieve this via the <code>convert_all</code> method in the <code>DocumentConverter</code> class. It takes a list of <code>Path</code> variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size and more.</p>
+<p>The Docling Python library provides you a convienient way to achieve this via the <code>convert_all</code> method in the <code>DocumentConverter</code> class. It takes a list of <code>Path</code> variables pointing to the set of documents you want to convert, along with other parameters to control error handling, page size, and more.</p>
 </div>
 <div class="paragraph">
 <p>See <a href="https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.DocumentConverter.convert_all" target="_blank" rel="noopener">the convert_all method</a> API documentation for the full parameter list.</p>
@@ -217,7 +217,7 @@
 <p>Git CLI to clone the sample data files from GitHub</p>
 </li>
 <li>
-<p>Visual Studio Code, or other editors to edit Python code</p>
+<p>Visual Studio Code or other editors to edit Python code</p>
 </li>
 </ul>
 </div>
@@ -237,7 +237,7 @@
 </div>
 </li>
 <li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
@@ -271,7 +271,7 @@ def main():
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Construct <code>Path</code> objects by fetching all files with ".pdf" extension</td>
+<td>Construct <code>Path</code> objects by fetching all files with ".pdf" extension.</td>
 </tr>
 </table>
 </div>
@@ -303,7 +303,7 @@ def main():
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The pipeline options set previously</td>
+<td>The pipeline options were set previously</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -336,7 +336,7 @@ def main():
 </div>
 </li>
 <li>
-<p>Finally, export the in memory representation of the <code>DoclingDocument</code> object to Markdown format. Use the VS Code autocomplete suggestions to view other <code>save_as*</code> methods available on the <code>DoclingDocument</code> object.</p>
+<p>Finally, export the in-memory representation of the <code>DoclingDocument</code> object to Markdown format. Use the VS Code autocomplete suggestions to view other <code>save_as*</code> methods available on the <code>DoclingDocument</code> object.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">conv_res.document.save_as_markdown(

@@ -198,10 +198,10 @@
 <p>Docling supports integration with Vision Language Models (VLM) to analyze images and captions embedded in a document. Building on top of Docling&#8217;s pluggable architecture, you can use different VLMs to process your documents depending on the complexity and speed required for your conversion process.</p>
 </div>
 <div class="paragraph">
-<p>You can provide the details of the VLM you want to use and extra options for customizing the pipeline to the <code>pipeline_options</code> flag like you have done in previous sections.</p>
+<p>You can provide the details of the VLM you want to use and extra options for customizing the pipeline to the <code>pipeline_options</code> flag, like you have done in previous sections.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct" target="_blank" rel="noopener">SmolVLM-256M</a> vision language model provides a simple multimodal model that accepts arbitrary sequences of image and text inputs to produce text outputs.This compact model can be run locally on your system.</p>
+<p>The <a href="https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct" target="_blank" rel="noopener">SmolVLM-256M</a> vision language model provides a simple multimodal model that accepts arbitrary sequences of image and text inputs to produce text outputs. This compact model can be run locally on your system.</p>
 </div>
 <div class="paragraph">
 <p>You can also use the more refined and bigger <a href="https://huggingface.co/ibm-granite/granite-vision-3.1-2b-preview" target="_blank" rel="noopener">ibm-granite/granite-vision-3.1-2b-preview</a> model from IBM for more complex use-cases.</p>
@@ -217,7 +217,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
@@ -225,7 +225,7 @@
 </div>
 </li>
 <li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
@@ -244,7 +244,7 @@
 </div>
 </li>
 <li>
-<p>Inspect the <code>image-describe.py</code> file in VS Code. The input document is in the <code>sample-data</code> folder. The image caotions output will be placed in the <code>/tmp/image-describe.html</code> file.</p>
+<p>Inspect the <code>image-describe.py</code> file in VS Code. The input document is in the <code>sample-data</code> folder. The image captions output will be placed in the <code>/tmp/image-describe.html</code> file.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">INPUT_DOC = "sample-data/docling-paper.pdf"
@@ -264,7 +264,7 @@ OUTFILE = "/tmp/image-describe.html"</code></pre>
         smolvlm_picture_description <i class="conum" data-value="2"></i><b>(2)</b>
     )
     pipeline_options.picture_description_options.prompt = (
-        "Describe the image in three sentences. Be consise and accurate." <i class="conum" data-value="3"></i><b>(3)</b>
+        "Describe the image in three sentences. Be concise and accurate." <i class="conum" data-value="3"></i><b>(3)</b>
     )
     pipeline_options.images_scale = 2.0
     pipeline_options.generate_picture_images = True</code></pre>
@@ -288,7 +288,7 @@ OUTFILE = "/tmp/image-describe.html"</code></pre>
 </div>
 </li>
 <li>
-<p>After the input document is converted into a <code>DoclingDocument</code> object, you can iterate the object tree and extract the images. In this case, we are extracting the first five pictures in the document. We extract the caption text from the image.</p>
+<p>After the input document is converted into a <code>DoclingDocument</code> object, you can iterate through the object tree and extract the images. In this case, we are extracting the first five pictures in the document. We extract the caption text from the image.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
@@ -303,7 +303,7 @@ for pic in doc.pictures[:5]:
 </div>
 </li>
 <li>
-<p>Next, we ask the VLM model to analyze the image and annotate it textually. Finally we write both the captions and the picture annotation text to an HTML file in the <code>/tmp/image-describe.html</code> file.</p>
+<p>Next, we ask the VLM model to analyze the image and annotate it textually. Finally, we write both the captions and the picture annotation text to an HTML file in the <code>/tmp/image-describe.html</code> file.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
@@ -378,7 +378,7 @@ pipeline_options = PdfPipelineOptions()
 pipeline_options.do_picture_description = True
 pipeline_options.picture_description_options = PictureDescriptionVlmOptions(
     repo_id="",  # &lt;-- add HF model ID here
-    prompt="Describe the image in three sentences. Be consise and accurate.",
+    prompt="Describe the image in three sentences. Be concise and accurate.",
 )
 pipeline_options.images_scale = 2.0
 pipeline_options.generate_picture_images = True

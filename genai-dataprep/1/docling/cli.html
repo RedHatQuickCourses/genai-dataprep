@@ -223,7 +223,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you have not already done so, clone the Git repository containing the sample documents that should be converted, to a folder of your choice. If you have completed the previous lab, then there is need to do this step.</p>
+<p>If you have not already done so, clone the Git repository containing the sample documents that should be converted to a folder of your choice. If you have completed the previous lab, then there is a need to do this step.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
@@ -262,18 +262,18 @@ docling-parse             4.0.3</code></pre>
 </div>
 </li>
 <li>
-<p>Run the <code>docling</code> CLI command to convert a PDF. When you run the <code>docling</code> command for the first time, it will take a while to download and cache a few pre-trained models from Hugging Face model repository (These specialized models are used to identify and extract tables, images and layout information from documents). Subsequent runs will be approximately 50% faster.</p>
+<p>Run the <code>docling</code> CLI command to convert a PDF. When you run the <code>docling</code> command for the first time, it will take a while to download and cache a few pre-trained models from the Hugging Face model repository (These specialized models are used to identify and extract tables, images, and layout information from documents). Subsequent runs will be approximately 50% faster.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling --output /tmp/ sample-data/docling-rpt.pdf</strong></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The default output format is <em>Markdown</em>. The output is saved to a .md file in the location specified by the <code>--output</code> flag.</p>
+<p>The default output format is <em>Markdown</em>. The output is saved to an .md file in the location specified by the <code>--output</code> flag.</p>
 </div>
 </li>
 <li>
-<p>Verify that a file with the same name, but with a <code>.md</code> extension is created in the <code>/tmp</code> folder. You can preview the Markdown file in Visual Studio Code or some other previewer</p>
+<p>Verify that a file with the same name, but with an <code>.md</code> extension is created in the <code>/tmp</code> folder. You can preview the Markdown file in Visual Studio Code or some other previewer.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/cli-convert.png" alt="cli convert">
@@ -309,7 +309,7 @@ docling-parse             4.0.3</code></pre>
 </div>
 </li>
 <li>
-<p>Now, let&#8217;s try and convert an MS Word document to Markdown</p>
+<p>Now, let&#8217;s try to convert an MS Word document to Markdown.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling --output /tmp/ sample-data/msword-sample.docx</strong></code></pre>
@@ -326,7 +326,7 @@ docling-parse             4.0.3</code></pre>
 </div>
 </li>
 <li>
-<p>Finally, let&#8217;s try and convert an MS Powerpoint document to Markdown</p>
+<p>Finally, let&#8217;s try to convert an MS Powerpoint document to Markdown.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling --output /tmp/ sample-data/ppt-sample.pptx</strong>
@@ -340,7 +340,7 @@ WARNING:docling.backend.mspowerpoint_backend:Warning: image cannot be loaded by 
 <div class="title">Figure 3. MS Powerpoint file to Markdown Preview</div>
 </div>
 <div class="paragraph">
-<p>Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not able to parse an embedded WMF file in the slides.</p>
+<p>Docling has identified the layout and structure in the input document and correctly converted it to Markdown. Each slide is converted into a Markdown heading, and the content in the slides is placed under the corresponding headings. Bullets in the slides are converted to lists in the Markdown. You can safely ignore the warning about Docling not being able to parse an embedded WMF file in the slides.</p>
 </div>
 </li>
 <li>

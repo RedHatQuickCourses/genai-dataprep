@@ -205,19 +205,19 @@
 <div class="ulist">
 <ul>
 <li>
-<p>macOS, Linux or WSL based Windows environments</p>
+<p>macOS, Linux, or, WSL-based Windows environments</p>
 </li>
 <li>
 <p>Python version 3.10-3.12. The code examples in this course were tested with Python 3.12 on macOS ARM.</p>
 </li>
 <li>
-<p>It is recommended to use a tool like <strong>brew</strong> on macOS, <strong>pyenv</strong> or <strong>uv</strong> on other operating systems to install and manage Python versions.</p>
+<p>It is recommended to use a tool like <strong>brew</strong> on macOS, <strong>pyenv</strong>, or <strong>uv</strong> on other operating systems to install and manage Python versions.</p>
 </li>
 <li>
 <p><strong>Podman</strong> (recommended) or <strong>Docker</strong> if you want to run Docling as a container. This course uses <strong>Podman</strong>.</p>
 </li>
 <li>
-<p>Git CLI to clone the sample data files from GitHub</p>
+<p>Git CLI to clone the sample data files from GitHub.</p>
 </li>
 </ul>
 </div>
@@ -229,7 +229,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Verify that you have Python 3.10, or higher installed on your system</p>
+<p>Verify that you have Python 3.10 or higher installed on your system.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>python3 -V</strong>
@@ -238,7 +238,7 @@ Python 3.12.11</code></pre>
 </div>
 </li>
 <li>
-<p>During the course, you will work with a set of input documents that will be converted to various output formats. Clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<p>During the course, you will work with a set of input documents that will be converted to various output formats. Clone the Git repository containing the sample documents that should be converted to a folder of your choice.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
@@ -246,7 +246,7 @@ Python 3.12.11</code></pre>
 </div>
 </li>
 <li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
@@ -254,7 +254,7 @@ Python 3.12.11</code></pre>
 </div>
 </li>
 <li>
-<p>Throughout the course, you will run code in an isolated virtual environment. Create a virtual environment (venv) for this course</p>
+<p>Throughout the course, you will run code in an isolated virtual environment. Create a virtual environment (venv) for this course.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>python3 -m venv venv</strong></code></pre>
@@ -262,14 +262,14 @@ Python 3.12.11</code></pre>
 </div>
 </li>
 <li>
-<p>Activate the virtual environment</p>
+<p>Activate the virtual environment.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>source venv/bin/activate</strong></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Your prompt should change to indicate that you are now running in an isolated virtual environment</p>
+<p>Your prompt should change to indicate that you are now running in an isolated virtual environment.</p>
 </div>
 </li>
 <li>
@@ -290,7 +290,7 @@ docling-parse-4.0.3 easyocr-1.7.2
 </div>
 </li>
 <li>
-<p>Verify that the <code>docling</code> CLI is installed and verify the version</p>
+<p>Verify that the <code>docling</code> CLI is installed and verify the version.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>docling --version</strong>

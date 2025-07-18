@@ -195,7 +195,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A document <strong>serializer</strong> is a Docling abstraction that is initialized with a given <strong>DoclingDocument</strong> and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.</p>
+<p>A document <strong>serializer</strong> is a Docling abstraction that is initialized with a given <strong>DoclingDocument</strong> and returns a textual representation for that document in various standard formats (HTML, Markdown, JSON, etc). They serve as a bridge between Docling’s internal representations and external tools, databases, or storage/file formats.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -207,7 +207,7 @@
 <p>Serializers are components responsible for converting processed document objects (like chunked documents or embedding results) into formats that can be saved, transferred, or indexed, typically for use in downstream applications like LLM pipelines, vector databases, or search systems.</p>
 </div>
 <div class="paragraph">
-<p>Docling defines abstractions for several objects in the contained within the <code>DoclingDocument</code>, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.</p>
+<p>Docling defines abstractions for several objects contained within the <code>DoclingDocument</code>, for example, text serializer, table serializer, picture serializer, list serializer, and more. You can also extend the base Docling serializer classes and write your own custom serializer for any other output format that you need.</p>
 </div>
 <div class="paragraph">
 <p>This functionality is crucial for preparing documents for use in Generative AI applications, such as Retrieval-Augmented Generation (RAG), LLM fine-tuning, and question-answering systems.</p>
@@ -244,7 +244,7 @@
 <p>Git CLI to clone the sample data files from GitHub</p>
 </li>
 <li>
-<p>Visual Studio Code, or other editors to edit Python code</p>
+<p>Visual Studio Code or other editors to edit Python code</p>
 </li>
 </ul>
 </div>
@@ -254,7 +254,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
@@ -262,7 +262,7 @@
 </div>
 </li>
 <li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
@@ -281,7 +281,7 @@
 </div>
 </li>
 <li>
-<p>Inspect the <code>serializers.py</code> file in VS Code. The input document is <code>sample-data/ub-pldi25.pdf</code>. The serialized ouptut will be printed to the terminal.</p>
+<p>Inspect the <code>serializers.py</code> file in VS Code. The input document is <code>sample-data/ub-pldi25.pdf</code>. The serialized output will be printed to the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...
@@ -291,7 +291,7 @@ INPUT_DOC = Path("sample-data/ub-pldi25.pdf")
 </div>
 </li>
 <li>
-<p>Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serialzer with customization respectively. The last two methods are commented out initially.</p>
+<p>Scroll all the way to the bottom of the file. This file contains three methods, demonstrating the HTML serializer, followed by the Markdown Serializer, and the Markdown Serializer with customization, respectively. The last two methods are commented out initially.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">...

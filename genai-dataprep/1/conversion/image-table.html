@@ -195,7 +195,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once you convert an input document into the unified <code>DoclingDocument</code> object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells and textual items.</p>
+<p>Once you convert an input document into the unified <code>DoclingDocument</code> object, you can then programatically traverse the object tree and extract items like headings, paragraphs, code blocks, images, tables, cells, and textual items.</p>
 </div>
 </div>
 </div>
@@ -211,7 +211,7 @@
 <p>Git CLI to clone the sample data files from GitHub</p>
 </li>
 <li>
-<p>Visual Studio Code, or other editors to edit Python code</p>
+<p>Visual Studio Code or other editors to edit Python code</p>
 </li>
 </ul>
 </div>
@@ -223,7 +223,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted, to a folder of your choice.</p>
+<p>If you have not already done it, clone the Git repository containing the sample documents that should be converted to a folder of your choice.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>git clone https://github.com/RedHatQuickCourses/genai-apps.git</strong></code></pre>
@@ -231,7 +231,7 @@
 </div>
 </li>
 <li>
-<p>All the sample input files and code is in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
+<p>All the sample input files and code are in a folder called <code>dataprep</code>. Change to this folder in the terminal.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ <strong>cd genai-apps/dataprep</strong></code></pre>
@@ -271,7 +271,7 @@ OUTPUT_DIR = "/tmp/export-tables/"</code></pre>
 </div>
 </li>
 <li>
-<p>On the <code>DoclingDocument</code> object, Docling provides a <code>tables</code> method that returns a list of <code>TableItem</code> objects representing all the tables in the document. We take advantage of Docling&#8217;s integration with the popular <code>Pandas</code> library to export a <code>DataFrame</code> object that we can convieniently query and manipulate.</p>
+<p>On the <code>DoclingDocument</code> object, Docling provides a <code>tables</code> method that returns a list of <code>TableItem</code> objects representing all the tables in the document. We take advantage of Docling&#8217;s integration with the popular <code>Pandas</code> library to export a <code>DataFrame</code> object that we can conveniently query and manipulate.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">...
@@ -334,7 +334,7 @@ for table_ix, table in enumerate(<strong>conv_res.document.tables</strong>):
 </div>
 </li>
 <li>
-<p>Once the document is converted, we iterate over each page in the document, and take a snapshot image of each page and save it in the <code>/tmp/export-images</code> folder. Once again, Docling&#8217;s native integration with the popular Python <code>Pillow</code> library provides a nice convienient abstraction for us to export the image objects to different formats.</p>
+<p>Once the document is converted, we iterate over each page in the document, take a snapshot image of each page, and save it in the <code>/tmp/export-images</code> folder. Once again, Docling&#8217;s native integration with the popular Python <code>Pillow</code> library provides a nice convenient abstraction for us to export the image objects to different formats.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">...
@@ -349,7 +349,7 @@ for table_ix, table in enumerate(<strong>conv_res.document.tables</strong>):
 </div>
 </li>
 <li>
-<p>Next, we iterate over the hierarchial tree of nested objects in the <code>DoclingDocument</code> object and extract images (<code>PictureItem</code> elements) from it. We serialize each of the extracted images in the <code>/tmp/export-images</code> folder.</p>
+<p>Next, we iterate over the hierarchical tree of nested objects in the <code>DoclingDocument</code> object and extract images (<code>PictureItem</code> elements) from it. We serialize each of the extracted images in the <code>/tmp/export-images</code> folder.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">...
@@ -364,7 +364,7 @@ for element, _level in conv_res.document.<strong>iterate_items()</strong>:
 </div>
 </li>
 <li>
-<p>Continue using the virtual environment from the previous lab. If you are not in the virtual environment, active it and then run the <code>export-images.py</code> file.</p>
+<p>Continue using the virtual environment from the previous lab. If you are not in the virtual environment, activate it and then run the <code>export-images.py</code> file.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">$ (venv) <strong>python3 export-images.py</strong></code></pre>
